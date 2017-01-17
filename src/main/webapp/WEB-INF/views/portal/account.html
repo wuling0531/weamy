@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="format-detection" content="telephone=no" />
+		<title>麦哆咪</title>
+		<link rel="stylesheet" type="text/css" href="css/css.css">
+		<script src="http://api.map.baidu.com/api?type=quick&ak=4ae721a05484fca11cb57c1a33b98b30&v=1.0" type="text/javascript"></script>
+	</head>
+	<body>
+		<div id="mainContent" class="mainContent">
+		  <header>
+		    <h1>
+			  <div class="btn-slide-left"><img src="img/home-mo.png" width="58" height="48"></div>
+		    我的帐户</h1>
+		  </header>
+		  
+		  <main>
+		  <div class="poster"><img src="img/haibao.jpg" width="100%"></div>
+		  <div class="User-info">
+		    <div class="user-image"><img src="img/maiya_img_06.jpg" width="100%"></div>
+			<p>您好，还是不懂V</p>
+		  </div>
+		  <div class="tails">
+		    <ul>
+			  <li>当前麦币(个)<br/><font>1000</font></li>
+			  <li>我的优惠券(张)<br/><font>5</font></li>
+			</ul>
+		  </div>
+		  </main>
+		  <div id="tails-but"><button  class="botbs "type="button">充值</button><p><a href="#">充值记录</a> | <a href="#">什么是麦币</a></p>
+		  </div>
+		</div>
+		<script type="text/javascript">
+			if(!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)){
+				document.getElementById('mainContent').style.width = '320px';
+				document.getElementById('mainContent').className="mainContent diyScroll";
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		urlinfo = window.location.href; //获取当前页面的url 
+        len = urlinfo.length;//获取url的长度 
+        offset = urlinfo.indexOf("?");//设置参数字符串开始的位置 
+        newsidinfo = urlinfo.substr(offset, len)//取出参数字符串 这里会获得类似“id=1”这样的字符串 
+        newsids = newsidinfo.split("=");//对获得的参数字符串按照“=”进行分割 
+        newsid = newsids[1];//得到参数值 
+//         alert("您要传递的参数值是" + newsid);
+//           newsid;
+console.log(newsid);
+exec_main(newsid);
+// iframe js function   
+function fIframe(){  
+//   alert('iframe function execute success');  
+}  
+
+// exec main function  
+function exec_main(iframeId){  
+	console.log(parent.window.tempFrame.contentWindow.document.body.innerHTML);
+// 	var bodyContent =  parent.window.iframeId.contentWindow.document.body ?
+// 			parent.window.iframeId.contentWindow.document.body.innerHTML : null;
+	
+// 	var responseXML = parent.window.iframeId.contentWindow.document.XMLDocument ?
+// 			parent.window.iframeId.contentWindow.document.XMLDocument :
+// 			    io.contentWindow.document;
+
+// 	var bodyContent = '22';
+// 		var responseXML ='33';
+// 	console.log(bodyContent);
+// 	console.log(responseXML);
+// 	io.contentWindow.document.body ?
+// 		    io.contentWindow.document.body.innerHTML : null;
+// 		    xml.responseXML = io.contentWindow.document.XMLDocument ?
+// 		    io.contentWindow.document.XMLDocument :
+// 		    io.contentWindow.document;
+//   if(typeof(exec_obj)=='undefined'){  
+//       exec_obj = document.createElement('iframe');  
+//       exec_obj.name = 'tmp_frame';  
+// //       exec_obj.src = 'http://127.0.0.1:86/static/execA.html?respC='+bodyContent+'&respXml='+responseXML+'&' + Math.random();  
+//       exec_obj.src = 'http://laihejifen.zhenjiatong.com/static/execA.html?respC='+bodyContent+'&respXml='+responseXML+'&' + Math.random();  
+//       exec_obj.style.display = 'none';  
+//       document.body.appendChild(exec_obj);  
+//   }else{  
+// //       exec_obj.src = 'http://127.0.0.1:86/static/execA.html?respC='+bodyContent+'&respXml='+responseXML+'&' + Math.random();  
+//       exec_obj.src = 'http://laihejifen.zhenjiatong.com/static/execA.html?respC='+bodyContent+'&respXml='+responseXML+'&' + Math.random();  
+//   }  
+}  
+</script>  
+// parent.document.contente
+	</script> 
+</body>
+</html>
