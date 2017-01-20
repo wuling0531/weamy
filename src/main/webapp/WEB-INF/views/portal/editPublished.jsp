@@ -30,9 +30,12 @@
 					<li class="yebor" style="cursor: pointer;" onclick="javascript:location.href='/wx/m/square';"><div class="po">
 							<img src="/static/mduomi/img/square-h.png">
 						</div>麦哆咪广场</li>
-					<li class="yebor" style="cursor: pointer;"><div class="po";">
+					<li class="yebor" style="cursor: pointer;"><div class="po">
 							<img src="/static/mduomi/img/album-h.png">
 						</div>我的专辑</li>
+                    <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';"><div class="po">
+                        <img src="/static/mduomi/img/album-h.png">
+                    </div>我的账户</li>
 					<li onclick="javascript:callWxScan();" style="cursor: pointer;"><div class="po">
 							<img src="/static/mduomi/img/scanning-h.png">
 						</div>扫一扫</li>
@@ -108,7 +111,7 @@
             signature : '${interfaceParamVO.signature}',
             jsApiList : [
                     'checkJsApi','scanQRCode']});
-        
+
         /**
          *防串货查询-条用微信‘扫一扫’接口，扫描二维码
          */
@@ -148,7 +151,7 @@
 	            	location.href = '/wx/m/releaseSong?musicId='+musicId;//未发布删除
 	            }});
         }
-        
+
         function toggleClassMenu() {
 	        if(!myMenu.classList.contains("menu--visible")){
 		        myMenu.classList.add("menu--visible");

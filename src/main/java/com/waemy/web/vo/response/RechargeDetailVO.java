@@ -8,7 +8,7 @@ public class RechargeDetailVO {
     
     private Date create_time;
     
-    private int money;
+    private String money;
     
     private String open_id;
     
@@ -36,11 +36,11 @@ public class RechargeDetailVO {
         this.create_time = create_time;
     }
     
-    public int getMoney() {
+    public String getMoney() {
         return money;
     }
     
-    public void setMoney(int money) {
+    public void setMoney(String money) {
         this.money = money;
     }
     

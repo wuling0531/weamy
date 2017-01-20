@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.waemy.web.vo.response.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,16 +24,6 @@ import com.waemy.web.vo.base.PageVO;
 import com.waemy.web.vo.base.StateVO;
 import com.waemy.web.vo.base.WeixinSnsapiUserinfoVO;
 import com.waemy.web.vo.base.WeixinUserMiddleVO;
-import com.waemy.web.vo.response.AccountInfoVO;
-import com.waemy.web.vo.response.ActivityListDateVO;
-import com.waemy.web.vo.response.CouponDetailVO;
-import com.waemy.web.vo.response.RechargeCommodityVO;
-import com.waemy.web.vo.response.RechargeDetailVO;
-import com.waemy.web.vo.response.SongDetailVO;
-import com.waemy.web.vo.response.SongDetailWithPraiseVO;
-import com.waemy.web.vo.response.SongNoPublishedDetailVO;
-import com.waemy.web.vo.response.SquareSongDetailWithPraiseVO;
-import com.waemy.web.vo.response.SquareeSongDetailWithPaiseVO;
 import com.waemy.web.vo.weixin.WeiXinJsApiParamsVO;
 
 /**
@@ -41,15 +32,15 @@ import com.waemy.web.vo.weixin.WeiXinJsApiParamsVO;
 @Controller
 @RequestMapping(value = "/wx/m")
 public class WeixinServiceController extends BaseController {
-    
+
     private static Logger logger = LoggerFactory.getLogger(WeixinServiceController.class);
-    
+
     @Autowired
     private IWeixinRefService weixinRefService;
-    
+
     @Autowired
     private IAPICallService apiCallService;
-    
+
     /**
      * 麦芽广场页面
      */
@@ -59,7 +50,10 @@ public class WeixinServiceController extends BaseController {
         String mappingPage = "portal/squareHome";// 广场首页
         String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
         try {
-            if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
+            logger.info("当前session中存在的session_OpenId=" + openId);
+            // 判断当前session中是否保存了OpenId
+            if (StringUtils.isBlank(openId) || "null".equals(openId)) {
+                logger.info("获取WeixinUserMiddleVO对象===");
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
                 if (weixinUserMiddleVO != null && StringUtils.isNotBlank(weixinUserMiddleVO.getOpenid())) {
                     openId = weixinUserMiddleVO.getOpenid();
@@ -72,8 +66,8 @@ public class WeixinServiceController extends BaseController {
                     // 3. 保存‘微信用户’详情信息
                     if (weixinSnsapiUserinfoVO != null && StringUtils.isNotBlank(weixinSnsapiUserinfoVO.getOpenid())) {
                         // 可以保存至数据库,暂时不做处理;只是返回前台页面...
-                        this.getSession().setAttribute("currentWxUserInfo", weixinSnsapiUserinfoVO);
                         model.addAttribute("wxUserInfo", weixinSnsapiUserinfoVO);
+                        this.getSession().setAttribute("currentWxUserInfo", weixinSnsapiUserinfoVO);
                     }
                 }
             } else {
@@ -81,7 +75,7 @@ public class WeixinServiceController extends BaseController {
                 WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = (WeixinSnsapiUserinfoVO) this.getSession().getAttribute("currentWxUserInfo");
                 model.addAttribute("wxUserInfo", weixinSnsapiUserinfoVO);
             }
-            
+
             // 开始处理页面
             if (pageVO.getPageNo() < 1) {
                 pageVO.setPageNo(1);
@@ -105,19 +99,55 @@ public class WeixinServiceController extends BaseController {
             WeiXinJsApiParamsVO weiXinJsApiParamsVO = WaemyWxInterfaceUtil.getWXJSInterfaceParamVO(requestPath);
             logger.info("*****weiXinJsApiParamsVO=" + weiXinJsApiParamsVO);
             model.addAttribute("interfaceParamVO", weiXinJsApiParamsVO);
+            model.addAttribute("pageVO", pageVO);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return mappingPage;
     }
-    
+
+    /**
+     * 广场页面，上拉加载下一页数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "/nextSquareData")
+    @ResponseBody
+    public MoreSquareSongDetailVO getMoreSquareData(PageVO pageVO) {
+        MoreSquareSongDetailVO moreSquareSongDetailVO = new MoreSquareSongDetailVO();
+        // 开始处理页面
+        if (pageVO.getPageNo() < 1) {
+            pageVO.setPageNo(1);
+        }
+        List<SquareeSongDetailWithPaiseVO> detailWithPaiseVOs = apiCallService.getMusicWithPraiseList(pageVO);
+        moreSquareSongDetailVO.setDetailWithPaiseVOs(detailWithPaiseVOs);
+        moreSquareSongDetailVO.setCurrentPageNo(pageVO.getPageNo());
+        moreSquareSongDetailVO.setNext(pageVO.isNextPage());
+        return moreSquareSongDetailVO;
+    }
+
     /**
      * 歌曲详情页面
+     *
      * @return
      */
     @RequestMapping(value = "/mydetail")
     public String mySongDetailPage(String squareMusicId, Model model) {
         String pageMapping = "portal/my-details";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        try {
+            if (StringUtils.isNotBlank(openId) && !"null".equals(openId)) {// 判断当前session中是否保存了OpenId
+                // 2.根据openid,调用微信用户信息接口->获取获取微信用户详情(如头像、昵称、位置等)
+                WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), openId);
+                logger.info("获取微信详情，weixinSnsapiUserinfoVO=" + weixinSnsapiUserinfoVO);
+                // 3. 保存‘微信用户’详情信息
+                if (weixinSnsapiUserinfoVO != null && StringUtils.isNotBlank(weixinSnsapiUserinfoVO.getOpenid())) {
+                    model.addAttribute("wxUserInfo", weixinSnsapiUserinfoVO);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             // 开始处理数据
             // SongDetailVO songDetailVO = apiCallService.getSongDetails(squareId);
@@ -131,9 +161,10 @@ public class WeixinServiceController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     /**
      * 麦哆咪-活动展示页面
+     *
      * @return
      */
     @RequestMapping(value = "/activity")
@@ -142,9 +173,10 @@ public class WeixinServiceController extends BaseController {
         model.addAttribute("activityListDataVO", activityListDataVO);
         return "portal/activity";
     }
-    
+
     /**
      * '我的'已发布、未发布歌曲列表页面
+     *
      * @return
      */
     @RequestMapping(value = "/mysong")
@@ -160,12 +192,11 @@ public class WeixinServiceController extends BaseController {
                     // 管理OpenId(针对于‘真假通公众号’)
                     this.getSession().setAttribute("currentOpenId", weixinUserMiddleVO.getOpenid());
                     // 2.根据openid,调用微信用户信息接口->获取获取微信用户详情(如头像、昵称、位置等)
-                    WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = null;
-                    weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), weixinUserMiddleVO.getOpenid());
+                    WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), weixinUserMiddleVO.getOpenid());
                     logger.info("获取微信详情，weixinSnsapiUserinfoVO=" + weixinSnsapiUserinfoVO);
                     // 3. 保存‘微信用户’详情信息
                     if (weixinSnsapiUserinfoVO != null && StringUtils.isNotBlank(weixinSnsapiUserinfoVO.getOpenid())) {
-                        // 可以保存至数据库,暂时不做处理;只是返回前台页面...
+//                        // 可以保存至数据库,暂时不做处理;只是返回前台页面...
                         this.getSession().setAttribute("currentWxUserInfo", weixinSnsapiUserinfoVO);
                         model.addAttribute("wxUserInfo", weixinSnsapiUserinfoVO);
                     }
@@ -207,9 +238,10 @@ public class WeixinServiceController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     /**
      * 未发布的歌曲列表页面
+     *
      * @return
      */
     @RequestMapping(value = "/mynotpublish")
@@ -219,7 +251,7 @@ public class WeixinServiceController extends BaseController {
             pageMapping = "portal/editPublished";
         }
         String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        // String openId = "oI5MLwnF-sZ072RetpsYaYki4N8c";
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId)) {// 没有获取到open
                 pageMapping = "error/404";
@@ -254,9 +286,10 @@ public class WeixinServiceController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     /**
      * 删除歌曲
+     *
      * @return
      */
     @RequestMapping(value = "/deleteSong")
@@ -266,18 +299,33 @@ public class WeixinServiceController extends BaseController {
         apiCallService.deleteCurrentSong(openId, musicId);
         if ("1".equals(type)) {
             return "redirect:/wx/m/mynotpublish?publichStatus=1";// 跳转到未发布页面
-            
+
         } else {// 2为已发布页面
             return "redirect:/wx/m/mynotpublish?publichStatus=2";// 跳转到未发布页面
         }
     }
-    
+
     /**
      * 编辑页面
+     *
      * @return
      */
     @RequestMapping(value = "/editSong")
     public String editSong(String baseMusicId, Model model) {
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        try {
+            if (StringUtils.isNotBlank(openId) && !"null".equals(openId)) {// 判断当前session中是否保存了OpenId
+                // 2.根据openid,调用微信用户信息接口->获取获取微信用户详情(如头像、昵称、位置等)
+                WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), openId);
+                logger.info("获取微信详情，weixinSnsapiUserinfoVO=" + weixinSnsapiUserinfoVO);
+                // 3. 保存‘微信用户’详情信息
+                if (weixinSnsapiUserinfoVO != null && StringUtils.isNotBlank(weixinSnsapiUserinfoVO.getOpenid())) {
+                    model.addAttribute("wxUserInfo", weixinSnsapiUserinfoVO);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         model.addAttribute("baseMusicId", baseMusicId);
         SongDetailVO songDetailVO = apiCallService.getSongDetails(baseMusicId);
         model.addAttribute("songDetailVO", songDetailVO);
@@ -286,9 +334,10 @@ public class WeixinServiceController extends BaseController {
         // model.addAttribute("picRedirect", "http://127.0.0.1:86//wx/m/respInfo");
         return "portal/editSong";
     }
-    
+
     /**
      * 图片上传的response返回信息
+     *
      * @return
      */
     @RequestMapping(value = "/respInfo")
@@ -299,10 +348,11 @@ public class WeixinServiceController extends BaseController {
         respData.put("resCode", resCode);
         return respData;
     }
-    
+
     /**
      * 编辑页面-编辑后提交<br/>
      * type=1,编辑提交；type=2，发布提交
+     *
      * @return
      */
     @RequestMapping(value = "/editSongSubmit")
@@ -318,9 +368,10 @@ public class WeixinServiceController extends BaseController {
             return "redirect:/wx/m/mysong";// 跳转到已编辑页面
         }
     }
-    
+
     /**
-     * 跳转到发布歌曲页面
+     * 已编辑页面的歌曲跳转到发布歌曲页面
+     *
      * @return
      */
     @RequestMapping(value = "/forwardReleaseSong")
@@ -328,11 +379,12 @@ public class WeixinServiceController extends BaseController {
         String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
         // String openId = "oI5MLwnF-sZ072RetpsYaYki4N8c";
         apiCallService.releaseSong(openId, squareId);
-        return "redirect:/wx/m/mysong";// 跳转到未发布页面
+        return "redirect:/wx/m/mysong";// 跳转到已发布页面
     }
-    
+
     /**
      * 发布歌曲提交
+     *
      * @return
      */
     @RequestMapping(value = "/releaseSong")
@@ -342,9 +394,10 @@ public class WeixinServiceController extends BaseController {
         apiCallService.releaseSong(openId, musicId);
         return "redirect:/wx/m/mysong";// 跳转到发布页面
     }
-    
+
     /**
      * 播放次数增加接口
+     *
      * @return
      */
     @RequestMapping(value = "/addplaytimes")
@@ -359,9 +412,10 @@ public class WeixinServiceController extends BaseController {
         }
         return stateVO;
     }
-    
+
     /**
      * 点赞增加接口
+     *
      * @return
      */
     @RequestMapping(value = "/addPraiseTimes")
@@ -378,9 +432,10 @@ public class WeixinServiceController extends BaseController {
         }
         return stateVO;
     }
-    
+
     /**
      * 一键关注页面
+     *
      * @return
      */
     @RequestMapping(value = "/followPublic")
@@ -395,8 +450,9 @@ public class WeixinServiceController extends BaseController {
                     WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
                     if (weixinUserMiddleVO != null && StringUtils.isNotBlank(weixinUserMiddleVO.getOpenid())) {
                         openId = weixinUserMiddleVO.getOpenid();
-                        // 管理OpenId(针对于‘真假通公众号’)
-                        this.getSession().setAttribute("currentOpenId", weixinUserMiddleVO.getOpenid());
+                        this.getSession().setAttribute("currentOpenId", openId);
+//                        this.getSession().setAttribute("currentOpenId", weixinUserMiddleVO.getOpenid());
+//                        // 管理OpenId(针对于‘真假通公众号’)
                     }
                 }
             }
@@ -406,9 +462,10 @@ public class WeixinServiceController extends BaseController {
         }
         return mappingPage;
     }
-    
+
     /**
      * 微信充值页面
+     *
      * @return
      */
     @RequestMapping(value = "/rechargePage")
@@ -424,14 +481,13 @@ public class WeixinServiceController extends BaseController {
                     // 管理OpenId(针对于‘真假通公众号’)
                     this.getSession().setAttribute("currentOpenId", weixinUserMiddleVO.getOpenid());
                     // 2.根据openid,调用微信用户信息接口->获取获取微信用户详情(如头像、昵称、位置等)
-                    WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = null;
-                    weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), weixinUserMiddleVO.getOpenid());
+                    WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), weixinUserMiddleVO.getOpenid());
                     logger.info("获取微信详情，weixinSnsapiUserinfoVO=" + weixinSnsapiUserinfoVO);
                     // 3. 保存‘微信用户’详情信息
                     if (weixinSnsapiUserinfoVO != null && StringUtils.isNotBlank(weixinSnsapiUserinfoVO.getOpenid())) {
+                        model.addAttribute("wxUserInfo", weixinSnsapiUserinfoVO);
                         // 可以保存至数据库,暂时不做处理;只是返回前台页面...
                         this.getSession().setAttribute("currentWxUserInfo", weixinSnsapiUserinfoVO);
-                        model.addAttribute("wxUserInfo", weixinSnsapiUserinfoVO);
                     }
                 }
             } else {
@@ -450,7 +506,7 @@ public class WeixinServiceController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     /**
      * @return
      */
@@ -480,9 +536,10 @@ public class WeixinServiceController extends BaseController {
         }
         return mappingPage;
     }
-    
+
     /**
      * 充值记录列表
+     *
      * @return
      */
     @RequestMapping(value = "/rechargeRecord")
@@ -499,10 +556,9 @@ public class WeixinServiceController extends BaseController {
                     // 管理OpenId(针对于‘真假通公众号’)
                     this.getSession().setAttribute("currentOpenId", weixinUserMiddleVO.getOpenid());
                     // 2.根据openid,调用微信用户信息接口->获取获取微信用户详情(如头像、昵称、位置等)
-                    WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = null;
-                    weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), weixinUserMiddleVO.getOpenid());
+                    WeixinSnsapiUserinfoVO weixinSnsapiUserinfoVO = weixinRefService.getSnsapiUserinfo(WaemyWxInterfaceUtil.getWaemyAccessToken(), weixinUserMiddleVO.getOpenid());
                     logger.info("获取微信详情，weixinSnsapiUserinfoVO=" + weixinSnsapiUserinfoVO);
-                    // 3. 保存‘微信用户’详情信息
+//                    // 3. 保存‘微信用户’详情信息
                     if (weixinSnsapiUserinfoVO != null && StringUtils.isNotBlank(weixinSnsapiUserinfoVO.getOpenid())) {
                         // 可以保存至数据库,暂时不做处理;只是返回前台页面...
                         this.getSession().setAttribute("currentWxUserInfo", weixinSnsapiUserinfoVO);
@@ -528,30 +584,35 @@ public class WeixinServiceController extends BaseController {
             e.printStackTrace();
         }
         return pageMapping;
-        
+
     }
-    
+
     /**
      * 麦币说明页
+     *
      * @return
      */
     @RequestMapping(value = "/coinDesc")
     public String maiCoinDesc() {
         return "portal/coinDesc";
     }
-    
+
     /**
      * 活动优惠券
+     *
      * @return
      */
     @RequestMapping(value = "/myCoupon")
-    public String myCoupon(PageVO pageVO, Integer status, String code, String state, Model model) {
+    public String myCoupon(PageVO pageVO, Integer status, String houseId, String code, String state, Model model) {
         String pageMapping = "portal/myCoupon";
         if (status != 1) {
             pageMapping = "portal/usedCoupon";
         }
         String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
         // String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+        if (StringUtils.isNotBlank(houseId)) {
+            model.addAttribute("houseId", houseId);
+        }
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
@@ -591,9 +652,9 @@ public class WeixinServiceController extends BaseController {
             e.printStackTrace();
         }
         return pageMapping;
-        
+
     }
-    
+
     /**
      * @return
      */
@@ -614,17 +675,48 @@ public class WeixinServiceController extends BaseController {
         }
         return "redirect:/wx/m/myCoupon?status=2";
     }
-    
+
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/activateCouponByAjax")
+    @ResponseBody
+    public StateVO activateCouponByAjax(String couponNo, String houseId) {
+        StateVO stateVO = new StateVO();
+        // 激活后，跳转到已使用页面
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        // String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+        try {
+            if (StringUtils.isBlank(openId)) {// 没有获取到open
+                stateVO.setCode(-1);
+                stateVO.setMsg("未获取到微信用户信息");
+            } else {
+                if(StringUtils.isNotBlank(houseId)){
+                    // 激活优惠券
+                    CommonRespNotDataVO respNotDataVO = apiCallService.activiteCoupon(couponNo, openId, houseId);
+                    if(!"1".equals(respNotDataVO.getResCode())){
+                        stateVO.setCode(-1);
+                    }
+                }else{
+                    stateVO.setCode(-1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stateVO;
+    }
+
     @RequestMapping(value = "/usedCoupon")
     public String usedCoupon(String status) {
         return "portal/usedCoupon";
     }
-    
+
     @RequestMapping(value = "/myAccount")
     public String myAccount(String code, String state, Model model) {
         String pageMapping = "portal/myAccount";
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-         String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
@@ -658,6 +750,6 @@ public class WeixinServiceController extends BaseController {
             e.printStackTrace();
         }
         return pageMapping;
-        
+
     }
 }

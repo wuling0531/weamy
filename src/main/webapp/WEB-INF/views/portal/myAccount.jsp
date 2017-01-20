@@ -63,8 +63,8 @@
 		</div>
 		<div class="tails">
 			<ul>
-				<li>当前麦币(个)<br /> <font>${accountInfoVO.count }</font></li>
-				<li onclick="javascript:location.href='/wx/m/myCoupon?status=1';">我的优惠券(张)<br /> <font><fmt:formatNumber value="${accountInfoVO.sum }" pattern="#" /> </font></li>
+				<li>当前麦币(个)<br /> <font><fmt:formatNumber value="${accountInfoVO.sum }" pattern="#.##"></fmt:formatNumber> </font></li>
+				<li onclick="javascript:location.href='/wx/m/myCoupon?status=1';">我的优惠券(张)<br /> <font><fmt:formatNumber value="${accountInfoVO.count }" pattern="#" /> </font></li>
 			</ul>
 		</div>
 		</main>

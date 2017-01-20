@@ -13,6 +13,35 @@
 </head>
 <body>
 	<div id="mainContent" class="mainContent">
+		<div class="menu">
+			<div class="app-menu">
+				<div class="mya">
+					<img src="/static/mduomi/img/mya.png">
+				</div>
+				<div class="avatar">
+					<div class="roundPO">
+						<div class="poimg">
+							<img id="currentWXHeadPic" src="${wxUserInfo.headimgurl }" width="100%">
+						</div>
+					</div>
+					<p>${wxUserInfo.nickname }</p>
+				</div>
+				<ul>
+					<li class="yebor"><div class="po">
+						<img src="/static/mduomi/img/square-h.png">
+					</div>麦哆咪广场</li>
+					<li class="yebor" onclick="javascript:location.href='/wx/m/mysong';"><div class="po">
+						<img src="/static/mduomi/img/album-h.png">
+					</div>我的专辑</li>
+					<li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';"><div class="po">
+						<img src="/static/mduomi/img/album-h.png">
+					</div>我的账户</li>
+					<li onclick="javascript:callWxScan();"><div class="po">
+						<img src="/static/mduomi/img/scanning-h.png">
+					</div>扫一扫</li>
+				</ul>
+			</div>
+		</div>
 		<header>
 			<h1>
 				<div class="btn-slide-left">
@@ -89,6 +118,19 @@
 	        }
 	        $('#rechargeForm').submit();
         }
+
+		function toggleClassMenu() {
+			if(!myMenu.classList.contains("menu--visible")){
+				myMenu.classList.add("menu--visible");
+			}else{
+				myMenu.classList.remove('menu--visible');
+			}
+		}
+
+		var myMenu = document.querySelector(".menu");
+		var oppMenu = document.querySelector(".btn-slide-left");
+		oppMenu.addEventListener("click", toggleClassMenu, false);
+		myMenu.addEventListener("click", toggleClassMenu, false);
 	</script>
 </body>
 </html>

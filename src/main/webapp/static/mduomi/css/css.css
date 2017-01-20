@@ -1,1470 +1,1480 @@
 /* CSS Document */
-body,div,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,iframe,input,textarea,select,label,article,aside,footer,header,menu,nav,section,time,audio,video,b
-	{
-	margin: 0;
-	padding: 0
+body, div, ol, ul, h1, h2, h3, h4, h5, h6, p, th, td, dl, dd, form, iframe, input, textarea, select, label, article, aside, footer, header, menu, nav, section, time, audio, video, b {
+    margin: 0;
+    padding: 0
 }
 
-article,aside,footer,header,hgroup,nav,section,audio,canvas,video,img {
-	display: block
+article, aside, footer, header, hgroup, nav, section, audio, canvas, video, img {
+    display: block
 }
 
 body {
-	font-size: 100%;
-	color: #323232;
-	font-family: '微软雅黑', tahoma, arial, 'Hiragino Sans GB', \5b8b\4f53,
-		sans-serif;
-	background: #1b1a23;
+    font-size: 100%;
+    color: #323232;
+    font-family: '微软雅黑', tahoma, arial, 'Hiragino Sans GB', \5b8b\4f53,
+    sans-serif;
+    background: #1b1a23;
 }
 
 textarea {
-	resize: none
+    resize: none
 }
 
-iframe,img {
-	border: 0
+iframe, img {
+    border: 0
 }
 
-ul,ol {
-	list-style: none
+ul, ol {
+    list-style: none
 }
 
 .bor-bot {
-	border-bottom: 1px #eee solid;
+    border-bottom: 1px #eee solid;
 }
 
 .mar_dr {
-	margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 .nobor {
-	border: none;
+    border: none;
 }
 
 a {
-	color: #fff;
-	text-decoration: none;;
+    color: #fff;
+    text-decoration: none;;
 }
 
 .mainContent {
-	margin: auto;
+    margin: auto;
 }
 
 h1 {
-	background: #1e1d2b;
-	border-bottom: 1px #18171f solid;
-	position: relative;
-	font-size: 110%;
-	font-weight: normal;
-	line-height: 48px;
-	text-align: center;
-	color: #f3003a;
+    background: #1e1d2b;
+    border-bottom: 1px #18171f solid;
+    position: relative;
+    font-size: 110%;
+    font-weight: normal;
+    line-height: 48px;
+    text-align: center;
+    color: #f3003a;
 }
 
 h1 .btn-slide-left {
-	position: absolute;
-	left: 0;
-	font-size: 80%;
-	width: 60px;
-	text-align: center;
-	line-height: 48px;
+    position: absolute;
+    left: 0;
+    font-size: 80%;
+    width: 60px;
+    text-align: center;
+    line-height: 48px;
 }
 
 h1 .btn-slide-right {
-	position: absolute;
-	right: 0;
-	font-size: 80%;
-	width: 60px;
-	text-align: center;
-	line-height: 48px;
+    position: absolute;
+    right: 0;
+    font-size: 80%;
+    width: 60px;
+    text-align: center;
+    line-height: 48px;
 }
 
 .mainContent .main {
-	width: 250px;
-	height: 250px;
-	position: relative;
-	margin: 30px auto 0 auto;
-	background: url(../img/maiya_img_01.jpg);
-	background-size: contain;
-	background-repeat: no-repeat;
+    width: 250px;
+    height: 250px;
+    position: relative;
+    margin: 30px auto 0 auto;
+    background: url(../img/maiya_img_01.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .mainContent .main .replace-back {
-	width: 100px;
-	line-height: 50px;
-	left: 75px;
-	top: 100px;
-	position: absolute;
-	font-size: 110%;
-	color: #fff;
-	text-align: center;
-	background: url(../img/maiya_back_di.png);
+    width: 100px;
+    line-height: 50px;
+    left: 75px;
+    top: 100px;
+    position: absolute;
+    font-size: 110%;
+    color: #fff;
+    text-align: center;
+    background: url(../img/maiya_back_di.png);
 }
 
 .mainContent .main .replace-success {
-	width: 100px;
-	line-height: 100px;
-	left: 75px;
-	bottom: -2px;
-	position: absolute;
-	font-size: 110%;
-	color: #fff;
-	text-align: center;
-	background: url(../img/maiya_back_di.png);
+    width: 100px;
+    line-height: 100px;
+    left: 75px;
+    bottom: -2px;
+    position: absolute;
+    font-size: 110%;
+    color: #fff;
+    text-align: center;
+    background: url(../img/maiya_back_di.png);
 }
 
 .mainContent p {
-	line-height: 52px;
-	text-align: center;
-	color: #666;
-	font-size: 80%;
+    line-height: 52px;
+    text-align: center;
+    color: #666;
+    font-size: 80%;
 }
 
 .mainContent .enter {
-	width: 90%;
-	margin: 30px auto 0 auto;
+    width: 90%;
+    margin: 30px auto 0 auto;
 }
 
 .mainContent .enter .text {
-	background: none;
-	border: 0;
-	color: #afafb0;
-	width: 100%;
-	font-size: 100%;
-	height: 40px;
+    background: none;
+    border: 0;
+    color: #afafb0;
+    width: 100%;
+    font-size: 100%;
+    height: 40px;
 }
 
 .mainContent .enter p {
-	text-align: right;
-	color: #afafb0;
+    text-align: right;
+    color: #afafb0;
 }
 
 .popWindow {
-	background-color: #000;
-	width: 100%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	filter: alpha(opacity = 50);
-	opacity: 0.5;
-	z-index: 1;
-	position: absolute;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    z-index: 1;
+    position: absolute;
 }
 
 .maskLayer {
-	width: 100%;
-	height: 190px;
-	bottom: 0;
-	color: #fff;
-	z-index: 2;
-	position: absolute;
-	text-align: center;
+    width: 100%;
+    height: 190px;
+    bottom: 0;
+    color: #fff;
+    z-index: 2;
+    position: absolute;
+    text-align: center;
 }
 
 .maskLayer .botlo {
-	width: 90%;
-	margin: 0 auto;
-	line-height: 48px;
-	height: 48px;
-	margin-bottom: 10px;
-	border: 0;
-	background: #fff;
-	color: #000;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
-	border-radius: 7px;
+    width: 90%;
+    margin: 0 auto;
+    line-height: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+    border: 0;
+    background: #fff;
+    color: #000;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
 }
 
 .maskLayer .takePhoto::before {
-	content: "拍照"
+    content: "拍照"
 }
 
 .maskLayer .distPhoto::before {
-	content: "本地上传"
+    content: "本地上传"
 }
 
 .maskLayer .botlo .picupload {
-	width: 90%;
-	height: 48px;
-	position: absolute;
-	left: 5%;
-	opacity: 0;
-	vertical-align: middle;
-	cursor: pointer;
+    width: 90%;
+    height: 48px;
+    position: absolute;
+    left: 5%;
+    opacity: 0;
+    vertical-align: middle;
+    cursor: pointer;
 }
 
 .maskLayer .botlo-h {
-	width: 90%;
-	margin: 0 auto;
-	line-height: 48px;
-	height: 48px;
-	margin-top: 10px;
-	border: 0;
-	background: #ccc;
-	color: #000;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
-	border-radius: 7px;
+    width: 90%;
+    margin: 0 auto;
+    line-height: 48px;
+    height: 48px;
+    margin-top: 10px;
+    border: 0;
+    background: #ccc;
+    color: #000;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
 }
 
-.maskLayer .botlo a,.maskLayer .botlo-h a {
-	color: #000;
-	display: block;
-	text-decoration: none;
+.maskLayer .botlo a, .maskLayer .botlo-h a {
+    color: #000;
+    display: block;
+    text-decoration: none;
 }
 
 /* CSS 活动 */
 .activityMAIN {
-	width: 90%;
-	margin: 0 auto;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .activityMAIN ul {
-	
+
 }
 
 .activityMAIN ul li {
-	position: relative;
-	color: #fff;
-	font-size: 80%;
-	height: 30px;
-	padding: 15px 0;
-	border-bottom: 1px #4f4e51 solid;
+    position: relative;
+    color: #fff;
+    font-size: 80%;
+    height: 30px;
+    padding: 15px 0;
+    border-bottom: 1px #4f4e51 solid;
 }
 
 .activityMAIN ul li .Gname {
-	width: 100px;
-	line-height: 30px;
-	right: 0;
-	text-align: right;
-	position: absolute;
+    width: 100px;
+    line-height: 30px;
+    right: 0;
+    text-align: right;
+    position: absolute;
 }
 
 .activityMAIN ul li .img {
-	width: 30px;
-	height: 30px;
-	float: left;
+    width: 30px;
+    height: 30px;
+    float: left;
 }
 
 .activityMAIN ul li .font {
-	padding-left: 10px;
-	line-height: 30px;
-	float: left;
+    padding-left: 10px;
+    line-height: 30px;
+    float: left;
 }
+
 /* CSS 活动 */
 
 /* CSS 套餐 */
 .package {
-	position: relative;
-	width: 90%;
-	margin: 0 auto;
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .but {
-	position: fixed;
-	width: 90%;
-	bottom: 10px;
+    position: fixed;
+    width: 90%;
+    bottom: 10px;
 }
 
 .but button {
-	width: 100%;
-	background: #f3003a;
-	border: 0;
-	color: #fff;
-	font-size: 100%;
-	line-height: 48px;
+    width: 100%;
+    background: #f3003a;
+    border: 0;
+    color: #fff;
+    font-size: 100%;
+    line-height: 48px;
 }
 
 .package ul {
-	margin: 20px 0;
+    margin: 20px 0;
 }
 
 .package ul li {
-	position: relative;
-	line-height: 48px;
-	padding-left: 30px;
-	color: #fff;
-	font-size: 80%;
+    position: relative;
+    line-height: 48px;
+    padding-left: 30px;
+    color: #fff;
+    font-size: 80%;
 }
 
 .package ul li .input {
-	width: 16px;
-	height: 16px;
-	position: absolute;
-	left: 0;
-	top: 15px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 0;
+    top: 15px;
 }
 
 .package ul li .fontd {
-	line-height: 48px;
-	position: absolute;
-	right: 0;
-	top: 0;
+    line-height: 48px;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 /* CSS 套餐 */
 
 /* CSS home */
 h1 .btn-home-left {
-	position: absolute;
-	left: 0;
-	font-size: 80%;
-	width: 60px;
-	text-align: center;
-	line-height: 48px;
+    position: absolute;
+    left: 0;
+    font-size: 80%;
+    width: 60px;
+    text-align: center;
+    line-height: 48px;
 }
 
 h1 .btn-home-right {
-	position: absolute;
-	right: 0;
-	font-size: 80%;
-	width: 60px;
-	text-align: center;
-	line-height: 48px;
+    position: absolute;
+    right: 0;
+    font-size: 80%;
+    width: 60px;
+    text-align: center;
+    line-height: 48px;
 }
 
 .mainContent .hounitLI {
-	width: 90%;
-	border-bottom: 1px #333 solid;
-	padding: 15px 5%;
+    width: 90%;
+    border-bottom: 1px #333 solid;
+    padding: 15px 5%;
 }
 
 .hounitLI h1 {
-	background: none;
-	height: 36px;
-	margin-bottom: 10px;
-	position: relative;
+    background: none;
+    height: 36px;
+    margin-bottom: 10px;
+    position: relative;
 }
 
 .hounitLI h1 .homeDI {
-	width: 100px;
-	line-height: 36px;
-	position: absolute;
-	color: #8f8f8f;
-	right: 0;
-	text-align: right;
-	font-size: 70%;
+    width: 100px;
+    line-height: 36px;
+    position: absolute;
+    color: #8f8f8f;
+    right: 0;
+    text-align: right;
+    font-size: 70%;
 }
 
 .hounitLI h1 .round-image {
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	overflow: hidden;
-	float: left;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
 }
 
 .hounitLI h1 p {
-	line-height: 36px;
-	padding-left: 14px;
-	display: block;
-	color: #f3003a;
-	float: left;
+    line-height: 36px;
+    padding-left: 14px;
+    display: block;
+    color: #f3003a;
+    float: left;
 }
 
 .hounitLI .song-box {
-	height: 100px;
-	width: 100%;
-	background: #4f4e51;
-	cursor: pointer;
+    height: 100px;
+    width: 100%;
+    background: #4f4e51;
+    cursor: pointer;
 }
 
 .hounitLI .song-box .Cover {
-	width: 100px;
-	height: 100px;
-	float: left;
+    width: 100px;
+    height: 100px;
+    float: left;
 }
 
 .hounitLI .song-box .songmi {
-	height: 80px;
-	padding: 10px;
-	float: left;
+    height: 80px;
+    padding: 10px;
+    float: left;
 }
 
 .hounitLI .song-box .songmi p {
-	color: #fff;
-	font-size: 100%;
+    color: #fff;
+    font-size: 100%;
 }
 
 .songmi .tisong {
-	background: url(../img/tisong.png) no-repeat;
-	padding-left: 20px;
-	font-size: 80%;
-	color: #999;
+    background: url(../img/tisong.png) no-repeat;
+    padding-left: 20px;
+    font-size: 80%;
+    color: #999;
 }
 
 .songmi .music {
-	background: url(../img/music.png) no-repeat;
-	padding-left: 20px;
-	font-size: 80%;
-	color: #999;
+    background: url(../img/music.png) no-repeat;
+    padding-left: 20px;
+    font-size: 80%;
+    color: #999;
 }
 
 .hounitLI ul {
-	height: 22px;
-	width: 100%;
-	margin: 10px 0;
-	display: block;
+    height: 22px;
+    width: 100%;
+    margin: 10px 0;
+    display: block;
 }
 
 .hounitLI li {
-	float: left;
-	display: block;
-	margin-right: 10px;
+    float: left;
+    display: block;
+    margin-right: 10px;
 }
 
 .po-image {
-	width: 22px;
-	height: 22px;
-	border-radius: 50%;
-	overflow: hidden;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .font-t {
-	width: 50px;
-	line-height: 22px;
-	color: #999;
-	font-size: 80%;
+    width: 50px;
+    line-height: 22px;
+    color: #999;
+    font-size: 80%;
 }
 
 .hounitLI span {
-	color: #fff;
-	font-size: 80%;
+    color: #fff;
+    font-size: 80%;
 }
 
 .hounitLI dd {
-	text-align: right;
-	line-height: 20px;
-	margin: 0;
-	padding: 0;
-	color: #999;
-	font-size: 74%;
+    text-align: right;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+    color: #999;
+    font-size: 74%;
 }
+
 /* CSS home */
 .details {
-	width: 90%;
-	padding: 0 5% 10px 5%;
+    width: 90%;
+    padding: 0 5% 10px 5%;
 }
 
 .details h1 {
-	line-height: 42px;
-	color: #66678a;
-	font-size: 80%;
-	text-align: left;
-	border-bottom: 1px #272534 solid;
-	background: none;
+    line-height: 42px;
+    color: #66678a;
+    font-size: 80%;
+    text-align: left;
+    border-bottom: 1px #272534 solid;
+    background: none;
+    line-height: 25px;
 }
 
 .details h2 {
-	background: none;
-	height: 36px;
-	font-size: 120%;
-	font-weight: normal;
-	margin: 10px 0;
-	position: relative;
+    background: none;
+    height: 36px;
+    font-size: 120%;
+    font-weight: normal;
+    margin: 10px 0;
+    position: relative;
 }
 
 .details h2 .round-images {
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	overflow: hidden;
-	float: left;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
 }
 
 .details h2 p {
-	line-height: 18px;
-	padding-left: 14px;
-	text-align: left;
-	display: block;
-	font-size: 70%;
-	color: #66678a;
-	float: left;
+    line-height: 18px;
+    padding-left: 14px;
+    text-align: left;
+    display: block;
+    font-size: 70%;
+    color: #66678a;
+    float: left;
 }
 
 .details h2 p font {
-	color: #fff;
-	font-weight: bold;
+    color: #fff;
+    font-weight: bold;
 }
 
 .details h3 {
-	position: relative;
-	font-weight: normal;
-	font-size: 80%;
-	color: #66678a;
+    position: relative;
+    font-weight: normal;
+    font-size: 80%;
+    color: #66678a;
 }
 
 .details h3 .data {
-	position: absolute;
-	right: 0px;
-	color: #999;
-	top: 0;
+    position: absolute;
+    right: 0px;
+    color: #999;
+    top: 0;
 }
 
 .details h4 {
-	font-weight: normal;
-	color: #f3003a;
-	font-size: 80%;
-	margin-top: 16px;
+    font-weight: normal;
+    color: #f3003a;
+    font-size: 80%;
+    margin-top: 16px;
 }
 
 .details h4 font {
-	padding-left: 10px;
+    padding-left: 10px;
 }
 
 .details span {
-	color: #fff;
-	font-size: 80%;
+    color: #fff;
+    font-size: 80%;
 }
 
 .details-up {
-	width: 90%;
-	padding: 0 5%;
-	background: #3b3a3d;
+    width: 90%;
+    padding: 0 5%;
+    background: #3b3a3d;
 }
 
 .details-up ul {
-	height: 22px;
-	width: 100%;
-	margin: 10px 0;
-	display: block;
+    height: 22px;
+    width: 100%;
+    margin: 10px 0;
+    display: block;
 }
 
 .details-up li {
-	float: left;
-	display: block;
-	margin-right: 10px;
+    float: left;
+    display: block;
+    margin-right: 10px;
 }
 
 .details-up li .po-image {
-	width: 22px;
-	height: 22px;
-	border-radius: 50%;
-	overflow: hidden;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .details-up li .font-t {
-	width: 50px;
-	line-height: 22px;
-	color: #999;
-	font-size: 80%;
+    width: 50px;
+    line-height: 22px;
+    color: #999;
+    font-size: 80%;
 }
 
 .details-up .tisong-up {
-	background: url(../img/tisong.png) no-repeat;
-	padding-left: 20px;
-	font-size: 80%;
-	margin-bottom: 20px;
-	color: #999;
+    background: url(../img/tisong.png) no-repeat;
+    padding-left: 20px;
+    font-size: 80%;
+    margin-bottom: 20px;
+    color: #999;
 }
 
 .menu {
-	position: fixed;
-	left: 14%;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	pointer-events: none;
-	z-index: 150;
+    position: fixed;
+    left: 14%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 150;
 }
 
 .menu--visible {
-	pointer-events: auto;
+    pointer-events: auto;
 }
 
 .app-menu {
-	background-color: #fff;
-	color: #fff;
-	position: relative;
-	width: 90%;
-	height: 100%;
-	background-color: #3b3a3d;
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-	-webkit-transform: translateX(140%);
-	transform: translateX(140%);
-	display: flex;
-	flex-direction: column;
-	will-change: transform;
-	z-index: 160;
-	pointer-events: auto;
-	transition: all 0.5s ease-in;
-	transition: all 0.4s ease-out;
+    background-color: #fff;
+    color: #fff;
+    position: relative;
+    width: 90%;
+    height: 100%;
+    background-color: #3b3a3d;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    -webkit-transform: translateX(140%);
+    transform: translateX(140%);
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+    z-index: 160;
+    pointer-events: auto;
+    transition: all 0.5s ease-in;
+    transition: all 0.4s ease-out;
 }
 
 .app-menu .avatar {
-	width: 100%;
-	height: 250px;
-	background: #333;
+    width: 100%;
+    height: 250px;
+    background: #333;
 }
 
 .app-menu .avatar .roundPO {
-	width: 105px;
-	height: 105px;
-	padding: 8px;
-	margin: 54px auto 0 auto;
-	background: url(../img/round-po.png) no-repeat;
+    width: 105px;
+    height: 105px;
+    padding: 8px;
+    margin: 54px auto 0 auto;
+    background: url(../img/round-po.png) no-repeat;
 }
 
 .roundPO .poimg {
-	width: 104px;
-	height: 104px;
-	border-radius: 50%;
-	overflow: hidden;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .app-menu .avatar p {
-	color: #d60b39;
-	font-size: 100%;
+    color: #d60b39;
+    font-size: 100%;
 }
 
 .app-menu ul {
-	width: 80%;
-	display: block;
-	margin: 20px auto;
+    width: 80%;
+    display: block;
+    margin: 20px auto;
 }
 
 .app-menu li {
-	position: relative;
-	line-height: 56px;
-	color: #666;
-	padding-left: 80px;
+    position: relative;
+    line-height: 56px;
+    color: #666;
+    padding-left: 80px;
 }
 
 .app-menu li .po {
-	position: absolute;
-	left: 30px;
-	top: 17px;
-	width: 24px;
-	height: 24px;
+    position: absolute;
+    left: 30px;
+    top: 17px;
+    width: 24px;
+    height: 24px;
 }
 
 .yebor {
-	border-bottom: 1px #4f4e51 solid;
+    border-bottom: 1px #4f4e51 solid;
 }
 
 .app-menu .mya {
-	width: 40px;
-	height: 18px;
-	position: absolute;
-	bottom: 30px;
-	left: 50%;
-	margin-left: -20px;
+    width: 40px;
+    height: 18px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    margin-left: -20px;
 }
 
 .menu--visible .app-menu {
-	-webkit-transform: none;
-	transform: none;
+    -webkit-transform: none;
+    transform: none;
 }
 
 .menu:after {
-	content: '';
-	display: block;
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.4);
-	opacity: 0;
-	will-change: opacity;
-	pointer-events: none;
-	transition: opacity 1s cubic-bezier(0, 0, 0.3, 1);
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    will-change: opacity;
+    pointer-events: none;
+    transition: opacity 1s cubic-bezier(0, 0, 0.3, 1);
 }
 
 .menu--visible.menu:after {
-	opacity: 1;
-	pointer-events: auto;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .layout {
-	width: 100%;
+    width: 100%;
 }
 
 .header {
-	background-color: #ccc;
+    background-color: #ccc;
 }
 
 .menu-icon {
-	background-color: #b34848;
-	width: 100px;
-	height: 100px;
+    background-color: #b34848;
+    width: 100px;
+    height: 100px;
 }
 
 .title {
-	width: 100%;
-	height: 48px;
-	background: #333;
+    width: 100%;
+    height: 48px;
+    background: #333;
 }
 
 .title ul {
-	padding: 12px 0;
-	color: #fff;
+    padding: 12px 0;
+    color: #fff;
 }
 
 .title ul li {
-	width: 33%;
-	line-height: 24px;
-	text-align: center;
-	float: left;
+    width: 33%;
+    line-height: 24px;
+    text-align: center;
+    float: left;
 }
 
 .dline {
-	border-right: 1px #484848 solid;
+    border-right: 1px #484848 solid;
 }
 
 .red {
-	color: #f3003a;
+    color: #f3003a;
 }
 
 .features {
-	width: 100%;
-	height: 44px;
-	background: #373638;
+    width: 100%;
+    height: 44px;
+    background: #373638;
 }
 
 .features ul {
-	padding: 10px 0;
-	color: #fff;
+    padding: 10px 0;
+    color: #fff;
 }
 
 .features ul li {
-	position: relative;
-	width: 33%;
-	line-height: 24px;
-	text-align: center;
-	float: left;
-	margin: 0;
-	font-size: 84%;
+    position: relative;
+    width: 33%;
+    line-height: 24px;
+    text-align: center;
+    float: left;
+    margin: 0;
+    font-size: 84%;
 }
 
 .features ul li .icon {
-	width: 14px;
-	height: 14px;
-	left: 18px;
-	top: 4px;
-	position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 18px;
+    top: 4px;
+    position: absolute;
 }
 
 .font-h {
-	color: #9b9b9c;
+    color: #9b9b9c;
 }
 
 .albumD {
-	width: 100%;
-	line-height: 30px;
-	margin: 30% auto;
-	color: #999;
-	font-size: 74%;
-	text-align: center;
-	background: url(../img/nearby.png) 45% 0 no-repeat;
-	padding-top: 50px;
+    width: 100%;
+    line-height: 30px;
+    margin: 30% auto;
+    color: #999;
+    font-size: 74%;
+    text-align: center;
+    background: url(../img/nearby.png) 45% 0 no-repeat;
+    padding-top: 50px;
 }
 
 /* CSS details */
 .my-music-back {
-	width: 100%;
-	position: relative;
+    width: 100%;
+    position: relative;
 }
 
 .my-music-back .arrow {
-	width: 34px;
-	height: 34px;
-	position: absolute;
-	left: 6px;
-	top: 6px;
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    left: 6px;
+    top: 6px;
 }
 
 .my-music-back .del {
-	width: 34px;
-	height: 34px;
-	position: absolute;
-	right: 6px;
-	top: 6px;
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
 }
 
 .my-music-back .play {
-	width: 60px;
-	height: 60px;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-left: -30px;
-	margin-top: -30px
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -30px;
+    margin-top: -30px
 }
 
 .my-music-back .player {
-	position: absolute;
-	width: 100%;
-	bottom: 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .audioplayer {
-	margin: 0;
-	height: 2.4em; /* 40 */
-	color: #fff;
-	position: relative;
-	z-index: 1;
-	background: #000;
+    margin: 0;
+    height: 2.4em; /* 40 */
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    background: #000;
 }
 
 .audioplayer-mini {
-	width: 2.5em; /* 40 */
-	margin: 0 auto;
+    width: 2.5em; /* 40 */
+    margin: 0 auto;
 }
 
-.audioplayer>div {
-	position: absolute;
+.audioplayer > div {
+    position: absolute;
 }
 
 .audioplayer-playpause {
-	width: 2.5em; /* 40 */
-	height: 100%;
-	text-align: left;
-	text-indent: -9999px;
-	cursor: pointer;
-	z-index: 2;
-	top: 0;
-	left: 0;
+    width: 2.5em; /* 40 */
+    height: 100%;
+    text-align: left;
+    text-indent: -9999px;
+    cursor: pointer;
+    z-index: 2;
+    top: 0;
+    left: 0;
 }
 
 .audioplayer-mini .audioplayer-playpause {
-	width: 100%;
+    width: 100%;
 }
 
-.audioplayer-playpause:hover,.audioplayer-playpause:focus {
-	background-color: #222;
+.audioplayer-playpause:hover, .audioplayer-playpause:focus {
+    background-color: #222;
 }
 
 .audioplayer-playpause a {
-	display: block;
+    display: block;
 }
 
 .audioplayer:not (.audioplayer-playing ) .audioplayer-playpause a {
-	width: 0;
-	height: 0;
-	border: 0.5em solid transparent; /* 8 */
-	border-right: none;
-	border-left-color: #fff;
-	content: '';
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -0.5em 0 0 -0.25em; /* 8 4 */
+    width: 0;
+    height: 0;
+    border: 0.5em solid transparent; /* 8 */
+    border-right: none;
+    border-left-color: #fff;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -0.5em 0 0 -0.25em; /* 8 4 */
 }
 
 .audioplayer-playing .audioplayer-playpause a {
-	width: 0.75em; /* 12 */
-	height: 0.75em; /* 12 */
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -0.375em 0 0 -0.375em; /* 6 */
+    width: 0.75em; /* 12 */
+    height: 0.75em; /* 12 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -0.375em 0 0 -0.375em; /* 6 */
 }
 
-.audioplayer-playing .audioplayer-playpause a:before,.audioplayer-playing .audioplayer-playpause a:after
-	{
-	width: 40%;
-	height: 100%;
-	background-color: #fff;
-	content: '';
-	position: absolute;
-	top: 0;
+.audioplayer-playing .audioplayer-playpause a:before, .audioplayer-playing .audioplayer-playpause a:after {
+    width: 40%;
+    height: 100%;
+    background-color: #fff;
+    content: '';
+    position: absolute;
+    top: 0;
 }
 
 .audioplayer-playing .audioplayer-playpause a:before {
-	left: 0;
+    left: 0;
 }
 
 .audioplayer-playing .audioplayer-playpause a:after {
-	right: 0;
+    right: 0;
 }
 
 .audioplayer-time {
-	width: 4em; /* 70 */
-	height: 100%;
-	line-height: 3em; /* 38 */
-	text-align: center;
-	z-index: 2;
-	top: 0;
-	font-size: 70%;
+    width: 4em; /* 70 */
+    height: 100%;
+    line-height: 3em; /* 38 */
+    text-align: center;
+    z-index: 2;
+    top: 0;
+    font-size: 70%;
 }
 
 .audioplayer-time-current {
-	border-left-color: rgba(0, 0, 0, .25);
-	left: 0; /* 40 */
+    border-left-color: rgba(0, 0, 0, .25);
+    left: 0; /* 40 */
 }
 
 .audioplayer-time-duration {
-	right: 0; /* 40 */
+    right: 0; /* 40 */
 }
 
 .audioplayer-novolume .audioplayer-time-duration {
-	border-right: 0;
-	right: 0;
+    border-right: 0;
+    right: 0;
 }
 
 .audioplayer-bar {
-	height: 0.2em; /* 14 */
-	background-color: #222;
-	cursor: pointer;
-	z-index: 1;
-	top: 65%;
-	right: 3em; /* 110 */
-	left: 3em; /* 110 */
-	margin-top: -0.438em; /* 7 */
+    height: 0.2em; /* 14 */
+    background-color: #222;
+    cursor: pointer;
+    z-index: 1;
+    top: 65%;
+    right: 3em; /* 110 */
+    left: 3em; /* 110 */
+    margin-top: -0.438em; /* 7 */
 }
 
 .audioplayer-bar div {
-	width: 0;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .audioplayer-bar-loaded {
-	background-color: #333;
-	z-index: 1;
+    background-color: #333;
+    z-index: 1;
 }
 
 .audioplayer-bar-played {
-	background: #1ba1e2;
-	z-index: 2;
+    background: #1ba1e2;
+    z-index: 2;
 }
 
 .buts {
-	width: 90%;
-	margin: 20px auto 0 auto;
+    width: 90%;
+    margin: 20px auto 0 auto;
 }
 
 .buts .button {
-	width: 100%;
-	background: #f3003a;
-	border: 0;
-	color: #fff;
-	font-size: 100%;
-	line-height: 48px;
+    width: 100%;
+    background: #f3003a;
+    border: 0;
+    color: #fff;
+    font-size: 100%;
+    line-height: 48px;
 }
 
 .buts .eitbut {
-	width: 100%;
-	background: none;
-	border: 0;
-	color: #fff;
-	font-size: 100%;
-	line-height: 48px;
+    width: 100%;
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 100%;
+    line-height: 48px;
 }
 
 /* CSS Follow us */
 .code-main {
-	width: 200px;
-	height: 200px;
-	padding: 20px;
-	position: relative;
-	border-radius: 5%;
-	margin: 70px auto 0 auto;
-	background: #fff;
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    position: relative;
+    border-radius: 5%;
+    margin: 70px auto 0 auto;
+    background: #fff;
 }
 
 .code-fontA {
-	font-size: 80%;
-	padding-top: 30px;
-	color: #fff;
-	line-height: 30px;
-	display: block;
-	text-align: center;
+    font-size: 80%;
+    padding-top: 30px;
+    color: #fff;
+    line-height: 30px;
+    display: block;
+    text-align: center;
 }
 
 .code-fontB {
-	font-size: 100%;
-	color: #fff;
-	line-height: 30px;
-	display: block;
-	text-align: center;
+    font-size: 100%;
+    color: #fff;
+    line-height: 30px;
+    display: block;
+    text-align: center;
 }
 
 #menu {
-	right: 0;
-	bottom: 0;
-	left: 0;
-	position: fixed;
-	font-weight: bold;
-	background: #1b1a26;
-	border-top: 1px #18171f solid;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    font-weight: bold;
+    background: #1b1a26;
+    border-top: 1px #18171f solid;
 }
 
 * html #menu {
-	position: absolute;
-	bottom: 0;
-} /*only for ie*/
+    position: absolute;
+    bottom: 0;
+}
+
+/*only for ie*/
 html {
-	overflow: auto !important;
-	overflow: hidden;
+    overflow: auto !important;
+    overflow: hidden;
 }
 
 a {
-	color: #007CFD;
-	text-decoration: none
+    color: #007CFD;
+    text-decoration: none
 }
 
 #menu ul {
-	background: #fff;
+    background: #fff;
 }
 
 #menu li {
-	float: left;
-	width: 33%;
-	list-style: none;
-	text-align: center;
-	height: 48px;
-	font-weight: normal;
+    float: left;
+    width: 33%;
+    list-style: none;
+    text-align: center;
+    height: 48px;
+    font-weight: normal;
 }
 
 #menu li img {
-	margin: 0 auto;
+    margin: 0 auto;
 }
 
 /* CSS recharge us */
 h1.chargeTitle {
-	background: #1e1d2b;
-	border-bottom: 1px #18171f solid;
-	position: relative;
-	font-size: 110%;
-	font-weight: normal;
-	line-height: 48px;
-	text-align: center;
-	color: #f3003a;
+    background: #1e1d2b;
+    border-bottom: 1px #18171f solid;
+    position: relative;
+    font-size: 110%;
+    font-weight: normal;
+    line-height: 48px;
+    text-align: center;
+    color: #f3003a;
 }
 
 .recharge {
-	width: 90%;
-	margin: 0 auto;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .recharge h1 {
-	color: #fff;
-	font-weight: normal;
-	font-size: 90%;
-	text-align: left;
-	background: none;
-	line-height: 40px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 90%;
+    text-align: left;
+    background: none;
+    line-height: 40px;
 }
 
 .recharge ul {
-	height: 72px;
+    height: 72px;
 }
 
 .recharge ul li {
-	display: block;
-	border-radius: 5px;
-	float: left;
-	height: 56px;
-	padding-top: 16px;
-	line-height: 20px;
-	width: 30%;
-	color: #fff;
-	font-size: 80%;
-	text-align: center;
+    display: block;
+    border-radius: 5px;
+    float: left;
+    height: 56px;
+    padding-top: 16px;
+    line-height: 20px;
+    width: 30%;
+    color: #fff;
+    font-size: 80%;
+    text-align: center;
 }
 
 .gelone {
-	margin: 0 5%;
+    margin: 0 5%;
 }
 
 .backred {
-	background: #f3003a;
+    background: #f3003a;
 }
 
 .backglo {
-	background: #272534;
+    background: #272534;
 }
 
 .recharge .amountinput {
-	width: 100%;
-	color: #fff;
-	background: #272534;
-	height: 46px;
-	line-height: 46px;
-	font-size: 80%;
-	margin-top: 20px;
-	border-radius: 5px;
+    width: 100%;
+    color: #fff;
+    background: #272534;
+    height: 46px;
+    line-height: 46px;
+    font-size: 80%;
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .recharge .amountinput .inputY {
-	width: 90%;
-	font-size: 100%;
-	color: #fff;
-	padding-left: 2%;
-	background: none;
-	line-height: 46px;
-	border: none;
-	border-radius: 5px;
+    width: 90%;
+    font-size: 100%;
+    color: #fff;
+    padding-left: 2%;
+    background: none;
+    line-height: 46px;
+    border: none;
+    border-radius: 5px;
 }
 
 .recharge h2 {
-	font-weight: normal;
-	font-size: 80%;
-	color: #66678a;
-	padding-left: 5%;
-	line-height: 40px;
+    font-weight: normal;
+    font-size: 80%;
+    color: #66678a;
+    padding-left: 5%;
+    line-height: 40px;
 }
 
 .theway {
-	width: 90%;
-	margin: 0 auto;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .theway h1 {
-	color: #fff;
-	font-weight: normal;
-	font-size: 90%;
-	text-align: left;
-	background: none;
-	line-height: 40px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 90%;
+    text-align: left;
+    background: none;
+    line-height: 40px;
 }
 
 .theway .wxamoun {
-	position: relative;
-	width: 82%;
-	height: 40px;
-	padding-top: 8px;
-	color: #fff;
-	font-size: 80%;
-	background: url(../img/weixin.png) no-repeat left;
-	padding-left: 18%;
+    position: relative;
+    width: 82%;
+    height: 40px;
+    padding-top: 8px;
+    color: #fff;
+    font-size: 80%;
+    background: url(../img/weixin.png) no-repeat left;
+    padding-left: 18%;
 }
 
 .theway .wxamoun .Select {
-	position: absolute;
-	width: 48px;
-	height: 48px;
-	top: 0;
-	right: 0;
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: 0;
+    right: 0;
 }
 
 .theway .wxamoun font {
-	color: #66678a;
-	font-size: 72%;
+    color: #66678a;
+    font-size: 72%;
 }
 
 #put-but {
-	width: 100%;
-	right: 0;
-	bottom: 10px;
-	left: 0;
-	position: fixed;
+    width: 100%;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    position: fixed;
 }
 
 #put-but .botbs {
-	width: 90%;
-	margin-left: 5%;
-	background: #f3003a;
-	font-size: 100%;
-	border: 0;
-	line-height: 48px;
-	color: #fff;
-	border-radius: 5px;
+    width: 90%;
+    margin-left: 5%;
+    background: #f3003a;
+    font-size: 100%;
+    border: 0;
+    line-height: 48px;
+    color: #fff;
+    border-radius: 5px;
 }
+
 /* CSS recharge us */
 
 /* CSS recharge-record us */
 .titleB {
-	position: relative;
-	width: 95%;
-	padding-left: 5%;
-	background: #272534;
-	line-height: 26px;
-	font-size: 80%;
-	color: #fff;
+    position: relative;
+    width: 95%;
+    padding-left: 5%;
+    background: #272534;
+    line-height: 26px;
+    font-size: 80%;
+    color: #fff;
 }
 
 .titleB .t-number {
-	position: absolute;
-	text-align: right;
-	right: 5%;
-	top: 0;
-	line-height: 26px;
+    position: absolute;
+    text-align: right;
+    right: 5%;
+    top: 0;
+    line-height: 26px;
 }
 
 .r-record {
-	position: relative;
-	width: 90%;
-	font-size: 90%;
-	padding: 14px 5% 0 5%;
-	color: #fff;
-	height: 76px;
-	border-bottom: 1px #272534 solid;
-	line-height: 20px;
+    position: relative;
+    width: 90%;
+    font-size: 90%;
+    padding: 14px 5% 0 5%;
+    color: #fff;
+    height: 76px;
+    border-bottom: 1px #272534 solid;
+    line-height: 20px;
 }
 
 .r-record .mount {
-	position: absolute;
-	line-height: 20px;
-	top: 14px;
-	right: 5%;
-	font-size: 80%;
-	color: #fff;
+    position: absolute;
+    line-height: 20px;
+    top: 14px;
+    right: 5%;
+    font-size: 80%;
+    color: #fff;
 }
 
 .r-record font {
-	color: #00ff66;
-	font-size: 80%;
+    color: #00ff66;
+    font-size: 80%;
 }
 
 .r-record span {
-	font-size: 80%;
-	line-height: 26px;
-	color: #999;
+    font-size: 80%;
+    line-height: 26px;
+    color: #999;
 }
+
 /* CSS recharge-record us */
 
 /* CSS about-me us */
 .about {
-	width: 90%;
-	line-height: 18px;
-	padding-top: 10px;
-	margin: 0 auto;
-	font-size: 80%;
-	color: #fff;
+    width: 90%;
+    line-height: 18px;
+    padding-top: 10px;
+    margin: 0 auto;
+    font-size: 80%;
+    color: #fff;
 }
+
 /* CSS about-me us */
 
 /* CSS coupon-unused us */
 .cutitle {
-	width: 100%;
-	height: 30px;
-	padding-top: 10px;
-	background: #1e1d2b;
-	color: #65678a;
+    width: 100%;
+    height: 30px;
+    padding-top: 10px;
+    background: #1e1d2b;
+    color: #65678a;
 }
 
 .cutitle ul {
-	
+
 }
 
 .cutitle ul li {
-	width: 33%;
-	float: left;
-	text-align: center;
-	line-height: 20px;
-	font-size: 80%;
+    width: 33%;
+    float: left;
+    text-align: center;
+    line-height: 20px;
+    font-size: 80%;
 }
 
 .borter-l-r {
-	border-left: 1px #353441 solid;
-	border-right: 1px #353441 solid;
+    border-left: 1px #353441 solid;
+    border-right: 1px #353441 solid;
 }
 
 .title-redcs {
-	color: #f3003a;
-	/* 	border-right: 1px #353441 solid; */
+    color: #f3003a;
+    /* 	border-right: 1px #353441 solid; */
 }
 
 .volume-bo {
-	width: 90%;
-	padding: 14px 5%;
-	border-bottom: 1px #272534 solid;
+    width: 90%;
+    padding: 14px 5%;
+    border-bottom: 1px #272534 solid;
 }
 
 .volume-bo .bolbo {
-	width: 100%;
-	height: 96px;
-	background: url(../img/juan-back.png) no-repeat;
-	background-size: 100%;
+    width: 100%;
+    height: 96px;
+    background: url(../img/juan-back.png) no-repeat;
+    background-size: 100%;
 }
 
 .volume-bo .bolbo .b-title {
-	position: relative;
-	line-height: 30px;
-	color: #fff;
-	font-size: 80%;
-	padding-left: 15%;
-	text-align: left;
+    position: relative;
+    line-height: 30px;
+    color: #fff;
+    font-size: 80%;
+    padding-left: 15%;
+    text-align: left;
 }
 
 .volume-bo .bolbo .b-title .Description {
-	position: absolute;
-	line-height: 30px;
-	right: 5%;
-	top: 0;
-	text-align: right;
+    position: absolute;
+    line-height: 30px;
+    right: 5%;
+    top: 0;
+    text-align: right;
 }
 
 .volume-bo .bolbo p {
-	padding-left: 15%;
-	font-size: 70%;
-	color: #fff;
-	text-align: left;
-	line-height: 14px;
-	padding-top: 5px;
+    padding-left: 15%;
+    font-size: 70%;
+    color: #fff;
+    text-align: left;
+    line-height: 14px;
+    padding-top: 5px;
 }
 
 .volume-bo .bolbo p font {
-	font-size: 220%;
-	color: #f3003a;
-	line-height: 28px;
+    font-size: 220%;
+    color: #f3003a;
+    line-height: 28px;
 }
 
 .activation {
-	position: relative;
-	width: 90%;
-	height: 44px;
-	margin: 10px 5% 0 5%;
-	background: #272534;
+    position: relative;
+    width: 90%;
+    height: 44px;
+    margin: 10px 5% 0 5%;
+    background: #272534;
 }
 
 .activation .ricant {
-	position: absolute;
-	width: 90px;
-	height: 48px;
-	right: 0;
-	top: 5px;
+    position: absolute;
+    width: 90px;
+    height: 48px;
+    right: 0;
+    top: 5px;
 }
 
 .activation .ricant button {
-	width: 80px;
-	background: #f3003a;
-	line-height: 32px;
-	color: #fff;
-	font-size: 80%;
-	border: 0;
+    width: 80px;
+    background: #f3003a;
+    line-height: 32px;
+    color: #fff;
+    font-size: 80%;
+    border: 0;
 }
 
 .activation .acinput {
-	line-height: 44px;
-	padding-left: 8px;
-	background: none;
-	border: 0;
+    line-height: 44px;
+    padding-left: 8px;
+    background: none;
+    border: 0;
+    color: grey;
 }
+
 /* CSS coupon-unused us */
 
 /* CSS coupon-Used us */
 .volume-used {
-	width: 90%;
-	padding: 14px 5%;
-	border-bottom: 1px #272534 solid;
+    width: 90%;
+    padding: 14px 5%;
+    border-bottom: 1px #272534 solid;
 }
 
 .volume-used .bolbo {
-	width: 100%;
-	height: 96px;
-	background: url(../img/juan-back-2.png) no-repeat;
-	background-size: 100%;
+    width: 100%;
+    height: 96px;
+    background: url(../img/juan-back-2.png) no-repeat;
+    background-size: 100%;
 }
 
 .volume-used .bolbo .b-title {
-	position: relative;
-	line-height: 30px;
-	color: #fff;
-	font-size: 80%;
-	padding-left: 15%;
-	text-align: left;
+    position: relative;
+    line-height: 30px;
+    color: #fff;
+    font-size: 80%;
+    padding-left: 15%;
+    text-align: left;
 }
 
 .volume-used .bolbo .b-title .Description {
-	position: absolute;
-	line-height: 30px;
-	right: 5%;
-	top: 0;
-	text-align: right;
+    position: absolute;
+    line-height: 30px;
+    right: 5%;
+    top: 0;
+    text-align: right;
 }
 
 .volume-used .bolbo p {
-	padding-left: 15%;
-	font-size: 70%;
-	color: #fff;
-	text-align: left;
-	line-height: 14px;
-	padding-top: 5px;
+    padding-left: 15%;
+    font-size: 70%;
+    color: #fff;
+    text-align: left;
+    line-height: 14px;
+    padding-top: 5px;
 }
 
 .volume-used .bolbo p font {
-	font-size: 220%;
-	color: #999;
-	line-height: 28px;
+    font-size: 220%;
+    color: #999;
+    line-height: 28px;
 }
+
 /* CSS coupon-Used us */
 
 /* CSS account us */
 .poster {
-	width: 100%;
+    width: 100%;
 }
 
 .User-info {
-	width: 90%;
-	padding: 0 5%;
-	border-bottom: 1px #18171f solid;
-	height: 83px;
-	padding-top: 17px;
-	background: #1e1d2b;
+    width: 90%;
+    padding: 0 5%;
+    border-bottom: 1px #18171f solid;
+    height: 83px;
+    padding-top: 17px;
+    background: #1e1d2b;
 }
 
 .User-info .user-image {
-	width: 68px;
-	height: 68px;
-	border-radius: 50%;
-	overflow: hidden;
-	float: left;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
 }
 
 .User-info p {
-	line-height: 68px;
-	padding-left: 30px;
-	font-size: 80%;
-	display: block;
-	color: #f3003a;
-	float: left;
+    line-height: 68px;
+    padding-left: 30px;
+    font-size: 80%;
+    display: block;
+    color: #f3003a;
+    float: left;
 }
 
 .tails {
-	width: 100%;
-	color: #fff;
-	font-size: 80%;
+    width: 100%;
+    color: #fff;
+    font-size: 80%;
 }
 
 .tails ul {
-	
+
 }
 
 .tails ul li {
-	width: 50%;
-	text-align: center;
-	line-height: 22px;
-	padding-top: 14px;
-	float: left;
+    width: 50%;
+    text-align: center;
+    line-height: 22px;
+    padding-top: 14px;
+    float: left;
 }
 
 .tails ul li font {
-	color: #f3003a;
+    color: #f3003a;
 }
 
 #tails-but {
-	width: 100%;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	position: fixed;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
 }
 
 #tails-but .botbs {
-	width: 90%;
-	margin-left: 5%;
-	background: #f3003a;
-	font-size: 100%;
-	border: 0;
-	line-height: 48px;
-	color: #fff;
-	border-radius: 5px;
+    width: 90%;
+    margin-left: 5%;
+    background: #f3003a;
+    font-size: 100%;
+    border: 0;
+    line-height: 48px;
+    color: #fff;
+    border-radius: 5px;
 }
 
 #tails-but p {
-	line-height: 48px;
-	text-align: center;
+    line-height: 48px;
+    text-align: center;
 }
 
 #tails-but p a {
-	color: #66678a;
-	padding: 0 10px;
+    color: #66678a;
+    padding: 0 10px;
 }
+
 /* CSS account us */

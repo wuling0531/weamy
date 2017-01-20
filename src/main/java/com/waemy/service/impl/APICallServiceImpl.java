@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import com.waemy.web.vo.response.*;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,34 +29,12 @@ import com.waemy.web.vo.parse.SongDetailRespParse;
 import com.waemy.web.vo.parse.SongNoPublishedListDataRespParse;
 import com.waemy.web.vo.parse.SongPraiseRespParse;
 import com.waemy.web.vo.request.RequestVo;
-import com.waemy.web.vo.response.AccountInfoDataVO;
-import com.waemy.web.vo.response.AccountInfoVO;
-import com.waemy.web.vo.response.ActivityDataVO;
-import com.waemy.web.vo.response.ActivityListDateVO;
-import com.waemy.web.vo.response.CouponDetailListDataRespVO;
-import com.waemy.web.vo.response.CouponDetailVO;
-import com.waemy.web.vo.response.MusicListDataRespVO;
-import com.waemy.web.vo.response.PayLinkInfoDataVO;
-import com.waemy.web.vo.response.PayLinkInfoVO;
-import com.waemy.web.vo.response.RechargeCommodityListRespVO;
-import com.waemy.web.vo.response.RechargeCommodityVO;
-import com.waemy.web.vo.response.RechargeDetailVO;
-import com.waemy.web.vo.response.RechargeListDataRespVO;
-import com.waemy.web.vo.response.SongDetailDataVO;
-import com.waemy.web.vo.response.SongDetailVO;
-import com.waemy.web.vo.response.SongDetailWithPraiseVO;
-import com.waemy.web.vo.response.SongNoPublishedDetailVO;
-import com.waemy.web.vo.response.SongNoPublishedListDataRespVO;
-import com.waemy.web.vo.response.SongPraiseDataVO;
-import com.waemy.web.vo.response.SquareSongDetailVO;
-import com.waemy.web.vo.response.SquareSongDetailWithPraiseVO;
-import com.waemy.web.vo.response.SquareeSongDetailWithPaiseVO;
 
 @Component
 public class APICallServiceImpl implements IAPICallService {
-    
+
     private static Logger logger = LoggerFactory.getLogger(APICallServiceImpl.class);
-    
+
     @Override
     public List<SquareSongDetailVO> getMusicList(PageVO pageVO) {
         List<SquareSongDetailVO> songDetailVOs = new ArrayList<>();
@@ -81,7 +60,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return songDetailVOs;
     }
-    
+
     @Override
     public List<SquareeSongDetailWithPaiseVO> getMusicWithPraiseList(PageVO pageVO) {
         List<SquareeSongDetailWithPaiseVO> detailWithPaiseVOs = new ArrayList<>();
@@ -94,14 +73,15 @@ public class APICallServiceImpl implements IAPICallService {
             requestVo.requestDataMap = new HashMap<>();
             requestVo.requestDataMap.put("offset", String.valueOf(pageVO.getPageNo()));
             logger.info("开始请求：requestUrl_get=" + requestVo.requestUrl);
-            respVO = (MusicListDataRespVO) NetUtil.post(requestVo);
-            // model.addAttribute("mallProListRespVO", respVO);
+            respVO = (MusicListDataRespVO)(NetUtil.post(requestVo));
         } catch (Exception e) {
             e.printStackTrace();
         }
         if (respVO.getData() != null && respVO.getData().getList() != null && respVO.getData().getList().size() > 0) {
             if ("0".equals(respVO.getData().getTail())) {// 不是最后一页
                 pageVO.setNextPage(true);//
+            } else {
+                pageVO.setNextPage(false);//
             }
             SquareeSongDetailWithPaiseVO detailWithPaiseVO = null;
             RequestVo praiseReqVo = new RequestVo();
@@ -109,13 +89,15 @@ public class APICallServiceImpl implements IAPICallService {
             for (SquareSongDetailVO detailVO : respVO.getData().getList()) {
                 detailWithPaiseVO = new SquareeSongDetailWithPaiseVO();
                 detailWithPaiseVO.setSongDetailVO(detailVO);
-                String praiseListUrl = "http://101.201.41.109/maemy/api/praise/list/music/" + detailVO.getSquare_id();
+//                String praiseListUrl = "http://101.201.41.109/maemy/api/praise/list/music/" + detailVO.getSquare_id();
+                String praiseListUrl = "http://101.201.41.109/maemy/api/praise/list/music/" + detailVO.getMusic_id();
                 praiseReqVo.requestUrl = praiseListUrl;
                 praiseReqVo.jsonParser = new SongPraiseRespParse();
                 logger.info("开始请求：requestUrl_get=" + praiseReqVo.requestUrl);
                 praiseDataVO = (SongPraiseDataVO) NetUtil.post(praiseReqVo);
                 if (praiseDataVO != null) {
                     detailWithPaiseVO.setPraiseDetailVOs(praiseDataVO.getData().getPraiseList());
+                    logger.info("当前返回的prziseNum = "+praiseDataVO.getData().getPraiseNum());
                     detailWithPaiseVO.setPraiseNum(praiseDataVO.getData().getPraiseNum());
                 }
                 detailWithPaiseVOs.add(detailWithPaiseVO);
@@ -123,7 +105,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return detailWithPaiseVOs;
     }
-    
+
     @Override
     public List<SquareSongDetailVO> getCurrentUserPublishedList(String openId, PageVO pageVO) {
         List<SquareSongDetailVO> songDetailVOs = new ArrayList<>();
@@ -149,7 +131,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return songDetailVOs;
     }
-    
+
     @Override
     public List<SquareSongDetailWithPraiseVO> getCurrentUserPublishedWithPraiseList(String openId, PageVO pageVO) {
         List<SquareSongDetailWithPraiseVO> detailWithPraiseVOs = new ArrayList<>();
@@ -193,7 +175,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return detailWithPraiseVOs;
     }
-    
+
     /**
      * publichStatus：1未发布 2已编辑
      */
@@ -222,7 +204,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return songNoPublishedDetailVOs;
     }
-    
+
     @Override
     public void deleteCurrentSong(String openId, String squareId) {
         String deleteMusicUrl = "http://101.201.41.109/maemy/api/music/user/" + openId + "/music/" + squareId + "/delete";
@@ -237,7 +219,7 @@ public class APICallServiceImpl implements IAPICallService {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void releaseSong(String openId, String squareId) {
         String releaseSongUrl = "http://101.201.41.109/maemy/api/music/user/" + openId + "/music/" + squareId + "/release";
@@ -252,7 +234,7 @@ public class APICallServiceImpl implements IAPICallService {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void addSongPlayedTimes(String squareId) {
         String addSongPlayedUrl = "http://101.201.41.109/maemy/api/music/music/" + squareId + "/add/playtimes";
@@ -268,7 +250,7 @@ public class APICallServiceImpl implements IAPICallService {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void addSongPraisedTimes(String squareId, String openId) {
         logger.info("add-praise-time,squareId=" + squareId + ";openId=" + openId);
@@ -285,7 +267,7 @@ public class APICallServiceImpl implements IAPICallService {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public SongDetailVO getSongDetails(String squareId) {
         SongDetailVO detailVO = new SongDetailVO();
@@ -305,7 +287,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return detailVO;
     }
-    
+
     @Override
     public SongDetailWithPraiseVO getSongDetailsWithPraise(String squareMusicId) {
         SongDetailWithPraiseVO detailWithPraiseVO = new SongDetailWithPraiseVO();
@@ -337,7 +319,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return detailWithPraiseVO;
     }
-    
+
     @Override
     public void addFollowsToWechat(String openId, String deviceId) {
         String addFollowstUrl = "http://101.201.41.109/maemy/api/player/add/" + openId + "/device/" + deviceId;
@@ -350,7 +332,7 @@ public class APICallServiceImpl implements IAPICallService {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public ActivityListDateVO getActivityDataList() {
         ActivityListDateVO activityListDateVO = new ActivityListDateVO();
@@ -370,13 +352,17 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return activityListDateVO;
     }
-    
+
     @Override
-    public void editSongSubmit(String musicId, String coverUrl, String board) {
-        String editSongSubmitUrl = "http://101.201.41.109/maemy/api/music/" + musicId + "/update/board/" + board + "/coverUrl/" + coverUrl;
+    public void editSongSubmit(String musicId, String coverPicUrl, String board) {
+//        String editSongSubmitUrl = "http://101.201.41.109/maemy/api/music/" + musicId + "/update/board/" + board + "/coverUrl/" + coverUrl;
+        String editSongSubmitUrl = "http://101.201.41.109/maemy/api/music/music/" + musicId + "/update/board/coverUrl";
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = editSongSubmitUrl;
+            requestVo.requestDataMap = new HashMap<>();
+            requestVo.requestDataMap.put("board", board);
+            requestVo.requestDataMap.put("coverUrl",coverPicUrl);
             requestVo.jsonParser = new CommonRespNotDataParse();
             logger.info("开始请求：requestUrl_get=" + requestVo.requestUrl);
             NetUtil.post(requestVo);
@@ -384,11 +370,12 @@ public class APICallServiceImpl implements IAPICallService {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void directReleaseSong(String openId, String baseMusicId, String coverPicUrl, String boardStr) {
         // String releaseSongUrl = "http://101.201.41.109/maemy/api/music/user/" + openId + "/music/" + baseMusicId + "/release?board=" + boardStr + "&coverUrl" + coverPicUrl;
-        String releaseSongUrl = "http://101.201.41.109/maemy/api/music/" + baseMusicId + "/update/board/coverUrl";
+//        String releaseSongUrl = "http://101.201.41.109/maemy/api/music/" + baseMusicId + "/update/board/coverUrl";
+        String releaseSongUrl = "http://101.201.41.109/maemy/api/music/user/+openId+/music/"+ baseMusicId + "/release";
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = releaseSongUrl;
@@ -402,7 +389,7 @@ public class APICallServiceImpl implements IAPICallService {
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public List<RechargeDetailVO> getMyAccountDetailList(String openId, PageVO pageVO) {
         List<RechargeDetailVO> rechargeDetailVOs = new ArrayList<>();
@@ -429,7 +416,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return rechargeDetailVOs;
     }
-    
+
     @Override
     public List<CouponDetailVO> getMyCouponDetailList(String openId, int status) {
         List<CouponDetailVO> couponDetailVOs = new ArrayList<>();
@@ -452,7 +439,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return couponDetailVOs;
     }
-    
+
     @Override
     public List<RechargeCommodityVO> getRechargeCommodityList() {
         List<RechargeCommodityVO> commodityVOs = new ArrayList<>();
@@ -479,7 +466,7 @@ public class APICallServiceImpl implements IAPICallService {
         // }
         return commodityVOs;
     }
-    
+
     @Override
     public AccountInfoVO getMyAccountInfo(String openId) {
         AccountInfoVO accountInfoVO = null;
@@ -500,7 +487,7 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return accountInfoVO;
     }
-    
+
     @Override
     public String createPayWxQrcodeImg(String realPath, String openId, String productId, String paytype) {
         String qrcodeImgUrl = null;
@@ -528,7 +515,7 @@ public class APICallServiceImpl implements IAPICallService {
             } catch (Exception e2) {
                 logger.error("新建文件夹失败：" + e2.getMessage());
             }
-            
+
             // 1.3：生成产品的qrcode图片
             try {
                 String tmpImgFileName = UUID.randomUUID() + ".png";// 二维码图片
@@ -545,18 +532,20 @@ public class APICallServiceImpl implements IAPICallService {
         }
         return qrcodeImgUrl;
     }
-    
+
     @Override
-    public void activiteCoupon(String couponNo, String openId, String houseId) {
+    public CommonRespNotDataVO activiteCoupon(String couponNo, String openId, String houseId) {
+        CommonRespNotDataVO respNotDataVO = null;
         String activiteCouponUrl = "http://101.201.41.109/maemy/api/coupon/use/" + couponNo + "/user/" + openId + "/house/" + houseId;
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = activiteCouponUrl;
             requestVo.jsonParser = new CommonRespNotDataParse();
             logger.info("开始请求：requestUrl_get=" + requestVo.requestUrl);
-            NetUtil.get(requestVo);
+              respNotDataVO = (CommonRespNotDataVO) NetUtil.get(requestVo);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return respNotDataVO;
     }
 }

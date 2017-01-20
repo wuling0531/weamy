@@ -86,10 +86,11 @@ public class PageVO {
     }
     
     public boolean isNextPage() {
-        if (pageNo * pageSize < totalCount)
-            return true;
-        else
-            return false;
+        return this.nextPage;
+        // if (pageNo * pageSize < totalCount)
+        // return true;
+        // else
+        // return false;
     }
     
     @Override

@@ -66,6 +66,7 @@
 		</div>
 
 		<div class="activation">
+			<input type="hidden" id="currentHouseId" value="${houseId}"/>
 			<input id="inputCoupon" class="acinput" name="" placeholder="请输入优惠号码" type="text">
 			<div class="ricant">
 				<button type="button" onclick="activateCouponByInput();">激活</button>
@@ -89,6 +90,7 @@
 			</div>
 		</c:forEach> </main>
 	</div>
+	<script type="text/javascript" src="/static/mduomi/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		if(!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)){
 	        document.getElementById('mainContent').style.width = '320px';
@@ -100,9 +102,20 @@
 			location.href='/wx/m/activateCoupon?couponNo='+couponNo+'&houseId='+houseId;
 		}
 		//激活输入优惠券
-		function activateCouponByInput(couponNo,houseId){
+		function activateCouponByInput(){
 			var couponNo =$('#inputCoupon').val();
-			location.href='/wx/m/activateCoupon?couponNo='+couponNo+'&houseId=1';
+			var houseId = $('#currentHouseId').val();
+			$.getJSON('/wx/m/activateCouponByAjax', {
+				couponNo: couponNo,
+				houseId:houseId
+			}, function (data, state) {
+				if (data.code == -1) {
+					alert('激活失败');
+ 				}else{
+					location.href = '/wx/m/myCoupon?status=2';
+				}
+			})
+//			location.href='/wx/m/activateCoupon?couponNo='+couponNo+'&houseId=1';
 		}
 		
 		 function toggleClassMenu() {
