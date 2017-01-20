@@ -262,9 +262,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-				</configuration>
 				<!-- 发布时自动将源码同时发布的配置 -->
 				<executions>
 					<execution>
