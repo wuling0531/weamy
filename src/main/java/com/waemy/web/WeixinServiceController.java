@@ -185,8 +185,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/mysong")
     public String showMySongPublished(String code, String state, PageVO pageVO, Model model) {
         String pageMapping = "portal/published";
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
@@ -253,8 +253,8 @@ public class WeixinServiceController extends BaseController {
         if ("2".equals(publichStatus)) {// 已编辑状态的歌曲列表
             pageMapping = "portal/editPublished";
         }
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId)) {// 没有获取到open
                 pageMapping = "error/404";
@@ -366,8 +366,8 @@ public class WeixinServiceController extends BaseController {
             apiCallService.editSongSubmit(baseMusicId, coverPicUrl, boardStr);
             return "redirect:/wx/m/mynotpublish?publichStatus=2";// 跳转到已编辑页面
         } else {// 直接发布
-//            String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-            String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+            String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//            String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
             apiCallService.directReleaseSong(openId, baseMusicId, coverPicUrl, boardStr);
             return "redirect:/wx/m/mysong";// 跳转到已发布页面
         }
@@ -549,9 +549,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/rechargeRecord")
     public String chargeRecordPage(PageVO pageVO, String code, String state, Model model) {
         String pageMapping = "portal/rechargeRecord";
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
-        // String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
@@ -599,8 +598,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/moreChargeRecord")
     @ResponseBody
     public MoreRechargeDetailVOs getMoreChargeRecordData(PageVO pageVO) {
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         MoreRechargeDetailVOs moreRechargeDetailVOs = new MoreRechargeDetailVOs();
 //                moreSquareSongDetailVO = new MoreSquareSongDetailVO();
         // 开始处理页面
@@ -648,8 +647,8 @@ public class WeixinServiceController extends BaseController {
         if (status != 1) {
             pageMapping = "portal/usedCoupon";
         }
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         if (StringUtils.isNotBlank(houseId)) {
             model.addAttribute("houseId", houseId);
         }
@@ -703,8 +702,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/moreCouponData")
     @ResponseBody
     public MoreCouponDataVO getMoreCouponData(PageVO pageVO, Integer status) {
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         MoreCouponDataVO moreCouponDataVO = new MoreCouponDataVO();
         // 开始处理页面
         if (pageVO.getPageNo() < 1) {
@@ -730,8 +729,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/activateCoupon")
     public String activateCoupon(String couponNo, String houseId) {
         // 激活后，跳转到已使用页面
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId)) {// 没有获取到open
                 return "error/404";
@@ -784,8 +783,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/myAccount")
     public String myAccount(String code, String state, Model model) {
         String pageMapping = "portal/myAccount";
-//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
