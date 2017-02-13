@@ -73,7 +73,7 @@ public class APICallServiceImpl implements IAPICallService {
             requestVo.requestDataMap = new HashMap<>();
             requestVo.requestDataMap.put("offset", String.valueOf(pageVO.getPageNo()));
             logger.info("开始请求：requestUrl_get=" + requestVo.requestUrl);
-            respVO = (MusicListDataRespVO)(NetUtil.post(requestVo));
+            respVO = (MusicListDataRespVO) (NetUtil.post(requestVo));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class APICallServiceImpl implements IAPICallService {
                 praiseDataVO = (SongPraiseDataVO) NetUtil.post(praiseReqVo);
                 if (praiseDataVO != null) {
                     detailWithPaiseVO.setPraiseDetailVOs(praiseDataVO.getData().getPraiseList());
-                    logger.info("当前返回的prziseNum = "+praiseDataVO.getData().getPraiseNum());
+                    logger.info("当前返回的prziseNum = " + praiseDataVO.getData().getPraiseNum());
                     detailWithPaiseVO.setPraiseNum(praiseDataVO.getData().getPraiseNum());
                 }
                 detailWithPaiseVOs.add(detailWithPaiseVO);
@@ -155,9 +155,9 @@ public class APICallServiceImpl implements IAPICallService {
                 pageVO.setNextPage(true);//
             }
             // songDetailVOs = respVO.getData().getList();
-            SquareSongDetailWithPraiseVO detailWithPraiseVO = null;
+            SquareSongDetailWithPraiseVO detailWithPraiseVO;
             RequestVo praiseReqVo = new RequestVo();
-            SongPraiseDataVO praiseDataVO = null;
+            SongPraiseDataVO praiseDataVO;
             for (SquareSongDetailVO songDetailVO : respVO.getData().getList()) {
                 detailWithPraiseVO = new SquareSongDetailWithPraiseVO();
                 detailWithPraiseVO.setSongDetailVO(songDetailVO);
@@ -362,7 +362,7 @@ public class APICallServiceImpl implements IAPICallService {
             requestVo.requestUrl = editSongSubmitUrl;
             requestVo.requestDataMap = new HashMap<>();
             requestVo.requestDataMap.put("board", board);
-            requestVo.requestDataMap.put("coverUrl",coverPicUrl);
+            requestVo.requestDataMap.put("coverUrl", coverPicUrl);
             requestVo.jsonParser = new CommonRespNotDataParse();
             logger.info("开始请求：requestUrl_get=" + requestVo.requestUrl);
             NetUtil.post(requestVo);
@@ -375,7 +375,8 @@ public class APICallServiceImpl implements IAPICallService {
     public void directReleaseSong(String openId, String baseMusicId, String coverPicUrl, String boardStr) {
         // String releaseSongUrl = "http://101.201.41.109/maemy/api/music/user/" + openId + "/music/" + baseMusicId + "/release?board=" + boardStr + "&coverUrl" + coverPicUrl;
 //        String releaseSongUrl = "http://101.201.41.109/maemy/api/music/" + baseMusicId + "/update/board/coverUrl";
-        String releaseSongUrl = "http://101.201.41.109/maemy/api/music/user/+openId+/music/"+ baseMusicId + "/release";
+//        String releaseSongUrl = "http://101.201.41.109/maemy/api/music/user/+openId+/music/"+ baseMusicId + "/release";
+        String releaseSongUrl = "http://101.201.41.109/maemy/api/music/user/" + openId + "/music/" + baseMusicId + "/release";
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = releaseSongUrl;
@@ -436,7 +437,14 @@ public class APICallServiceImpl implements IAPICallService {
         }
         if (respVO != null) {
             couponDetailVOs = respVO.getData();
+
         }
+//        if (respVO.getData() != null && respVO.getData().getList() != null && respVO.getData().getList().size() > 0) {
+//            rechargeDetailVOs = respVO.getData().getList();
+//            if ("0".equals(respVO.getData().getTail())) {// 不是最后一页
+//                pageVO.setNextPage(true);//
+//            }
+//        }
         return couponDetailVOs;
     }
 
@@ -542,7 +550,7 @@ public class APICallServiceImpl implements IAPICallService {
             requestVo.requestUrl = activiteCouponUrl;
             requestVo.jsonParser = new CommonRespNotDataParse();
             logger.info("开始请求：requestUrl_get=" + requestVo.requestUrl);
-              respNotDataVO = (CommonRespNotDataVO) NetUtil.get(requestVo);
+            respNotDataVO = (CommonRespNotDataVO) NetUtil.get(requestVo);
         } catch (Exception e) {
             e.printStackTrace();
         }

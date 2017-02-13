@@ -1,5 +1,7 @@
 package com.waemy.web;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.waemy.utils.DateUtil;
 import com.waemy.web.vo.response.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -182,8 +185,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/mysong")
     public String showMySongPublished(String code, String state, PageVO pageVO, Model model) {
         String pageMapping = "portal/published";
-        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        // String openId = "aaaa";
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);
@@ -250,8 +253,8 @@ public class WeixinServiceController extends BaseController {
         if ("2".equals(publichStatus)) {// 已编辑状态的歌曲列表
             pageMapping = "portal/editPublished";
         }
-        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-//        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId)) {// 没有获取到open
                 pageMapping = "error/404";
@@ -311,7 +314,7 @@ public class WeixinServiceController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/editSong")
-    public String editSong(String baseMusicId, Model model) {
+    public String editSong(String baseMusicId, Integer status, Model model) {
         String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
         try {
             if (StringUtils.isNotBlank(openId) && !"null".equals(openId)) {// 判断当前session中是否保存了OpenId
@@ -326,6 +329,7 @@ public class WeixinServiceController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        model.addAttribute("status", status);
         model.addAttribute("baseMusicId", baseMusicId);
         SongDetailVO songDetailVO = apiCallService.getSongDetails(baseMusicId);
         model.addAttribute("songDetailVO", songDetailVO);
@@ -362,10 +366,10 @@ public class WeixinServiceController extends BaseController {
             apiCallService.editSongSubmit(baseMusicId, coverPicUrl, boardStr);
             return "redirect:/wx/m/mynotpublish?publichStatus=2";// 跳转到已编辑页面
         } else {// 直接发布
-            String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-            // String openId = "aaaa";
+//            String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+            String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
             apiCallService.directReleaseSong(openId, baseMusicId, coverPicUrl, boardStr);
-            return "redirect:/wx/m/mysong";// 跳转到已编辑页面
+            return "redirect:/wx/m/mysong";// 跳转到已发布页面
         }
     }
 
@@ -545,8 +549,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/rechargeRecord")
     public String chargeRecordPage(PageVO pageVO, String code, String state, Model model) {
         String pageMapping = "portal/rechargeRecord";
-        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        // String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         // String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
@@ -579,11 +583,47 @@ public class WeixinServiceController extends BaseController {
                 }
                 List<RechargeDetailVO> rechargeDetailVOs = apiCallService.getMyAccountDetailList(openId, pageVO);
                 model.addAttribute("rechargeDetailVOs", rechargeDetailVOs);
+                model.addAttribute("pageVO", pageVO);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return pageMapping;
+    }
+
+    /**
+     * "充值记录页面"-更多的数据加载
+     *
+     * @return
+     */
+    @RequestMapping(value = "/moreChargeRecord")
+    @ResponseBody
+    public MoreRechargeDetailVOs getMoreChargeRecordData(PageVO pageVO) {
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        MoreRechargeDetailVOs moreRechargeDetailVOs = new MoreRechargeDetailVOs();
+//                moreSquareSongDetailVO = new MoreSquareSongDetailVO();
+        // 开始处理页面
+        if (pageVO.getPageNo() < 1) {
+            pageVO.setPageNo(1);
+        }
+        List<RechargeDetailVO> rechargeDetailVOs = apiCallService.getMyAccountDetailList(openId, pageVO);
+        if (rechargeDetailVOs != null && rechargeDetailVOs.size() > 0) {
+            for (RechargeDetailVO rechargeDetailVO :
+                    rechargeDetailVOs) {
+                rechargeDetailVO.setDateStr(DateUtil.getDateFromString(rechargeDetailVO.getCreate_time(), "yyyy-MM-dd"));
+//                DecimalFormat df = (DecimalFormat) NumberFormat.getInstance();
+//                df.setMaximumFractionDigits(2);
+//                df.format(Double.parseDouble( rechargeDetailVO.getMoney()));
+//              df.applyPattern("0.00");
+//                NumberFormat.
+            }
+        }
+        moreRechargeDetailVOs.setRechargeDetailVOs(rechargeDetailVOs);
+        moreRechargeDetailVOs.setCurrentPageNo(pageVO.getPageNo());
+        moreRechargeDetailVOs.setNext(pageVO.isNextPage());
+//        List<SquareeSongDetailWithPaiseVO> detailWithPaiseVOs = apiCallService.getMusicWithPraiseList(pageVO);
+        return moreRechargeDetailVOs;
 
     }
 
@@ -608,8 +648,8 @@ public class WeixinServiceController extends BaseController {
         if (status != 1) {
             pageMapping = "portal/usedCoupon";
         }
-        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        // String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         if (StringUtils.isNotBlank(houseId)) {
             model.addAttribute("houseId", houseId);
         }
@@ -645,6 +685,7 @@ public class WeixinServiceController extends BaseController {
                 }
                 List<CouponDetailVO> couponDetailVOs = apiCallService.getMyCouponDetailList(openId, status);
                 model.addAttribute("couponDetailVOs", couponDetailVOs);
+                model.addAttribute("pageVO", pageVO);
                 // List<RechargeDetailVO> accountDetailVOs = apiCallService.getMyAccountDetailList(openId);
                 // model.addAttribute("accountDetailVOs", accountDetailVOs);
             }
@@ -652,7 +693,35 @@ public class WeixinServiceController extends BaseController {
             e.printStackTrace();
         }
         return pageMapping;
+    }
 
+    /**
+     * 我的优惠券-‘点击加载更多’
+     *
+     * @return
+     */
+    @RequestMapping(value = "/moreCouponData")
+    @ResponseBody
+    public MoreCouponDataVO getMoreCouponData(PageVO pageVO, Integer status) {
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
+        MoreCouponDataVO moreCouponDataVO = new MoreCouponDataVO();
+        // 开始处理页面
+        if (pageVO.getPageNo() < 1) {
+            pageVO.setPageNo(1);
+        }
+        List<CouponDetailVO> couponDetailVOs = apiCallService.getMyCouponDetailList(openId, status);
+        if (couponDetailVOs != null && couponDetailVOs.size() > 0) {
+            for (CouponDetailVO couponDetailVO :
+                    couponDetailVOs) {
+                couponDetailVO.setStartTimeStr(DateUtil.getDateFromString(couponDetailVO.getTime_start(), "yyyy.MM.dd"));
+                couponDetailVO.setEndTimeStr(DateUtil.getDateFromString(couponDetailVO.getTime_end(), "yyyy.MM.dd"));
+            }
+        }
+        moreCouponDataVO.setCouponDetailVOs(couponDetailVOs);
+        moreCouponDataVO.setCurrentPageNo(pageVO.getPageNo());
+        moreCouponDataVO.setNext(pageVO.isNextPage());
+        return moreCouponDataVO;
     }
 
     /**
@@ -661,8 +730,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/activateCoupon")
     public String activateCoupon(String couponNo, String houseId) {
         // 激活后，跳转到已使用页面
-        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-        // String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId)) {// 没有获取到open
                 return "error/404";
@@ -691,13 +760,13 @@ public class WeixinServiceController extends BaseController {
                 stateVO.setCode(-1);
                 stateVO.setMsg("未获取到微信用户信息");
             } else {
-                if(StringUtils.isNotBlank(houseId)){
+                if (StringUtils.isNotBlank(houseId)) {
                     // 激活优惠券
                     CommonRespNotDataVO respNotDataVO = apiCallService.activiteCoupon(couponNo, openId, houseId);
-                    if(!"1".equals(respNotDataVO.getResCode())){
+                    if (!"1".equals(respNotDataVO.getResCode())) {
                         stateVO.setCode(-1);
                     }
-                }else{
+                } else {
                     stateVO.setCode(-1);
                 }
             }
@@ -715,8 +784,8 @@ public class WeixinServiceController extends BaseController {
     @RequestMapping(value = "/myAccount")
     public String myAccount(String code, String state, Model model) {
         String pageMapping = "portal/myAccount";
-        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
-//        String openId = "oI5MLwolykWwi_urX2SUFY09oKr8";
+//        String openId = String.valueOf(this.getSession().getAttribute("currentOpenId"));// 获取当前session中保存的当前openId
+        String openId = "oI5MLwn9aeihsx-HEZ971MTg_yoY";
         try {
             if (StringUtils.isBlank(openId) || "null".equals(openId)) {// 判断当前session中是否保存了OpenId
                 WeixinUserMiddleVO weixinUserMiddleVO = weixinRefService.getWeixinUserMiddleVOByCode(code);

@@ -75,7 +75,7 @@
             <div class="btn-slide-left">
                 <img src="/static/mduomi/img/home-mo.png" width="58" height="48">
             </div>
-            发布
+            <c:choose><c:when test="${status =1}">编辑</c:when><c:otherwise>发布</c:otherwise></c:choose>
         </h1>
     </header>
     <form id="editSub" action="/wx/m/editSongSubmit" method="post">

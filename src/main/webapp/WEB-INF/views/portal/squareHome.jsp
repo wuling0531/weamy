@@ -79,7 +79,7 @@
             <div class="song-box"
                  onclick="javascript:location.href='/wx/m/mydetail?squareMusicId=${detailWithPaiseVO.songDetailVO.music_id}';">
                 <div class="Cover">
-                    <img src="${detailWithPaiseVO.songDetailVO.cover_url }" width="100%">
+                    <img src="${detailWithPaiseVO.songDetailVO.cover_url }" width="100%" height="100%">
                 </div>
                 <div class="songmi">
                     <p>${detailWithPaiseVO.songDetailVO.music_name }</p>

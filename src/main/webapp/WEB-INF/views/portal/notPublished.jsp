@@ -86,20 +86,20 @@
                     </div>
                     <div class="features">
                         <ul>
-                            <li onclick="javascript:deleteSong(${songNoPublishedVo.baseMusicId});" class="font-h">
+                            <li onclick="javascript:deleteSong(${songNoPublishedVo.id});" class="font-h">
                                 <div class="icon font-h">
                                     <img src="/static/mduomi/img/del.png">
                                 </div>
                                 删除
                             </li>
-                            <li onclick="javascript:location.href='/wx/m/editSong?baseMusicId=${songNoPublishedVo.baseMusicId}';">
+                            <li onclick="javascript:location.href='/wx/m/editSong?baseMusicId=${songNoPublishedVo.id}&status=1';">
                                 <div
                                         class="icon">
                                     <img src="/static/mduomi/img/edit.png">
                                 </div>
                                 编辑
                             </li>
-                            <li onclick="javascript:location.href='/wx/m/editSong?baseMusicId=${songNoPublishedVo.baseMusicId}';">
+                            <li onclick="javascript:location.href='/wx/m/editSong?baseMusicId=${songNoPublishedVo.id}&status=2';">
                                 <div
                                         class="icon">
                                     <img src="/static/mduomi/img/release.png">

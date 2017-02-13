@@ -5,9 +5,9 @@ import java.util.List;
 public class MoreSquareSongDetailVO {
     
     private List<SquareeSongDetailWithPaiseVO> detailWithPaiseVOs;
-    
+
     private int currentPageNo;
-    
+
     private boolean isNext = false;
     
     public List<SquareeSongDetailWithPaiseVO> getDetailWithPaiseVOs() {
