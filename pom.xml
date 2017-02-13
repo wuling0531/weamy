@@ -292,7 +292,6 @@
 					<stopKey>waemyWX</stopKey>
 					<stopPort>9999</stopPort>
 					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<!-- <contextXml>${project.basedir}/src/test/resources/jetty-context.xml</contextXml> -->
 					<webApp>
 						<contextPath>${plugin.jetty.contextPath}</contextPath>
 					</webApp>

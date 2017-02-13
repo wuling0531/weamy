@@ -1,0 +1,7 @@
+#忽略target文件
+target/
+#忽略.setting文件
+.settings/
+#忽略classpath
+.classpath
+.project
