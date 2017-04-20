@@ -16,15 +16,13 @@ import com.waemy.utils.weixin.WaemyWxInterfaceUtil;
 @Controller
 @RequestMapping(value = "/")
 public class WechatPortalController extends BaseController {
-    
+
     private static Logger logger = LoggerFactory.getLogger(WechatPortalController.class);
-    
+
     @Autowired
     private IWeixinRefService weixinRefService;
-    
+
     /**
-     * @param factoryId
-     * @param c
      * @return
      */
     @RequestMapping(value = "/wx/square")
@@ -46,7 +44,7 @@ public class WechatPortalController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     /**
      * @return
      */
@@ -69,14 +67,13 @@ public class WechatPortalController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     @RequestMapping(value = "/wx/myCoupon")
-    public String myCouponPageRedirect() {
+    public String myCouponPageRedirect(String deviceId) {
         String pageMapping = "/error/404";
         try {
             // 开始获取微信授权的请求链接
-            String REDIRECT_URI = "";
-            REDIRECT_URI = WaemyWxInterfaceUtil.CURRENT_DOMAIN + "/wx/m/myCoupon?status=1";
+            String REDIRECT_URI = WaemyWxInterfaceUtil.CURRENT_DOMAIN + "/wx/m/myCoupon?status=1&deviceId=" + deviceId;
             String wexinReqeust = weixinRefService.getCodeRequest(REDIRECT_URI);
             pageMapping = "redirect:" + wexinReqeust;
         } catch (Exception e) {
@@ -84,7 +81,7 @@ public class WechatPortalController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     @RequestMapping(value = "/wx/myAccount")
     public String myAccountPageRedirect() {
         String pageMapping = "/error/404";
@@ -99,7 +96,7 @@ public class WechatPortalController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     @RequestMapping(value = "/wx/rechargeRecord")
     public String myRechargeRecordPageRedirect() {
         String pageMapping = "/error/404";
@@ -114,9 +111,10 @@ public class WechatPortalController extends BaseController {
         }
         return pageMapping;
     }
-    
+
     /**
      * 微信一键关注的微信授权跳转
+     *
      * @return
      */
     @RequestMapping(value = "wx/followMe")

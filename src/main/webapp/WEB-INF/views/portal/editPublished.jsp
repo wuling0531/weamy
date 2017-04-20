@@ -41,7 +41,7 @@
                 </li>
                 <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';">
                     <div class="po">
-                        <img src="/static/mduomi/img/album-h.png">
+                        <img src="/static/mduomi/img/acct.png">
                     </div>
                     我的账户
                 </li>
@@ -72,13 +72,13 @@
             <li class="red">已编辑</li>
         </ul>
     </div>
-    <main><c:choose>
+    <main id="dataMainDiv"><c:choose>
         <c:when test="${fn:length(songNoPublishedDetailVOs) >0 }">
             <c:forEach items="${songNoPublishedDetailVOs }" var="songNoPublishedVo">
-                <div class="hounitLI">
-                    <div class="song-box">
+                <div class="hounitLI" >
+                    <div class="song-box" onclick="javascript:dispatherDetailPage(${songNoPublishedVo.id});">
                         <div class="Cover">
-                            <img src="${songNoPublishedVo.coverUrl }" width="100%">
+                            <img src="${songNoPublishedVo.coverUrl }" width="100%" height="100%" />
                         </div>
                         <div class="songmi">
                             <p>${songNoPublishedVo.musicName }</p>
@@ -115,6 +115,14 @@
             <div class="albumD">周边有玻璃房，去唱歌吧</div>
         </c:otherwise>
     </c:choose></main>
+    <c:if test="${pageVO.nextPage}">
+        <div id="moreDiv" onclick="moreData();"
+             style="width:100%;line-height: 32px;text-align: center;font-size: 80%;color: #666;">点击加载更多...
+        </div>
+    </c:if>
+    <input type="hidden" id="curPageNoFlag" value="${pageVO.pageNo}"/>
+    <input type="hidden" id="crtTotalCount" value="${fn:length(detailWithPaiseVOs)}"/>
+    <input type="hidden" id="firstNextFlag" value="${pageVO.nextPage}"/>
 </div>
 <script type="text/javascript" src="/static/mduomi/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="/static/layer.mobile/layer/layer.js"></script>
@@ -187,6 +195,53 @@
     var oppMenu = document.querySelector(".btn-slide-left");
     oppMenu.addEventListener("click", toggleClassMenu, false);
     myMenu.addEventListener("click", toggleClassMenu, false);
+
+    function moreData() {
+        var nextPageNo = parseInt($('#curPageNoFlag').val()) + 1;
+        var crtTotalCount = parseInt($('#crtTotalCount').val());
+        $.getJSON('/wx/m/moreSongUnPublished', {
+            pageNo: nextPageNo,
+            publichStatus:2
+        }, function (data, state) {
+            if (state == 'success') {
+                //为了看到加载中效果故加上定时器
+                setTimeout(function () {
+                    targetHtml = '';
+                    var arrObj = data.detailWithPaiseVOs;
+                    for (i = 0; i < arrObj.length; i++) {
+                        targetHtml += '<div class="hounitLI">';
+                        targetHtml += '<div class="song-box">';
+                        targetHtml += '<div class="Cover"><img src="' + arrObj[i].coverUrl + '" width="100%" height="100%"/></div>';
+                        targetHtml += '<div class="songmi"><p>' + arrObj[i].musicName + '</p><div class="tisong">' + arrObj[i].playTimes + '次</div></div>';
+                        targetHtml += '</div>';
+                        targetHtml += '<div class="features"><ul>';
+                        targetHtml += '<li onclick="javascript:deleteSong(' + arrObj[i].id + ');" class="font-h">';
+                        targetHtml += '<div class="icon font-h"><img src="/static/mduomi/img/del.png"></div>删除';
+                        targetHtml += '</li>';
+                        targetHtml += '<li onclick="javascript:location.href=\'/wx/m/editSong?baseMusicId=' + arrObj[i].id + '&status=1\';">';
+                        targetHtml += '<div class="icon"><img src="/static/mduomi/img/edit.png"></div>编辑';
+                        targetHtml += '</li>';
+                        targetHtml += '<li onclick="javascript:releaseSong('+ arrObj[i].id + ');">';
+                        targetHtml += '<div class="icon"><img src="/static/mduomi/img/release.png" /></div>发布';
+                        targetHtml += '</li>';
+                        targetHtml += '</ul></div>';
+                        targetHtml += '</div>';
+                    }
+                    $('#dataMainDiv').append(targetHtml);
+                    if (data.next) {
+                        $('#curPageNoFlag').val(data.currentPageNo);
+                    } else {
+                        $('#moreDiv').css("display", "none")
+                    }
+                }, 600);
+            }
+        });
+    }
+
+    function dispatherDetailPage(musicId) {
+        $('#curPageNoFlag').val(1);
+        location.href = '/wx/m/mydetail?squareMusicId=' + musicId;
+    }
 </script>
 </body>
 </html>

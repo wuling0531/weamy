@@ -38,7 +38,7 @@
                 <p>${wxUserInfo.nickname }</p>
             </div>
             <ul>
-                <li class="yebor">
+                <li class="yebor" onclick="javascript:location.href='/wx/m/square';">
                     <div class="po">
                         <img src="/static/mduomi/img/square-h.png">
                     </div>
@@ -52,7 +52,7 @@
                 </li>
                 <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';">
                     <div class="po">
-                        <img src="/static/mduomi/img/album-h.png">
+                        <img src="/static/mduomi/img/acct.png">
                     </div>
                     我的账户
                 </li>
@@ -75,7 +75,7 @@
             <div class="btn-slide-left">
                 <img src="/static/mduomi/img/home-mo.png" width="58" height="48">
             </div>
-            <c:choose><c:when test="${status =1}">编辑</c:when><c:otherwise>发布</c:otherwise></c:choose>
+            <c:choose><c:when test="${status == 1}">编辑</c:when><c:otherwise>发布</c:otherwise></c:choose>
         </h1>
     </header>
     <form id="editSub" action="/wx/m/editSongSubmit" method="post">
@@ -93,9 +93,9 @@
         <div class="enter">
 				<textarea class="text" name="boardStr" cols="" rows="" onkeyup="javascript:disTextCount(this);"
                           onmousedown="javascript:disTextCount(this);"
-                          maxlength="150">${empty songDetailVO.board?'我刚唱了一首歌，快去听听吧……':songDetailVO.board }</textarea>
+                           >${empty songDetailVO.board?'我刚唱了一首歌，快去听听吧……':songDetailVO.board }</textarea>
             <p id="txtNum">
-                <fmt:formatNumber type="number" value="${fn:length(songDetailVO.board)/2 }" maxFractionDigits="0"
+                <fmt:formatNumber type="number" value="${fn:length(songDetailVO.board)}" maxFractionDigits="0"
                                   pattern="#"/>
                 /150
             </p>
@@ -145,6 +145,7 @@
             success: function (json, status) {
                 closeDiv();//
                 $('#picDiv').css('background-image', 'url(' + json.data + ')');
+                $('#picDiv').css('background-size','cover');
                 $('#bgImg').val(json.data);
             },
             error: function ()//服务器响应失败处理函数
@@ -155,6 +156,7 @@
         return false;
     }
 
+    var i ;
     //显示汉字字数(一个汉字设为两个字符)
     function disTextCount(obj) {
         // 	        var currentNum = $(obj).val().length;
@@ -162,12 +164,15 @@
         myLen = getStrleng(str);
         var currentNum = Math.floor(myLen / 2);
         $('#txtNum').text(currentNum + '/150');
+        if(myLen>150){
+            obj.value=str.substring(0,i+1);
+        }
     }
 
     function getStrleng(str) {
         myLen = 0;
         i = 0;
-        for (; i < str.length; i++) {
+        for (; (i < str.length)&&(myLen<150*2); i++) {
             if (str.charCodeAt(i) > 0 && str.charCodeAt(i) < 128)
                 myLen++;
             else

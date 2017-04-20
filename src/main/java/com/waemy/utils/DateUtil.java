@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  * 上午8:08 和时间相关的方法集合
  */
 public class DateUtil {
-    
+
     public static long getAge(Date birthday) {
         if (birthday == null) {
             return 0;
@@ -21,7 +21,7 @@ public class DateUtil {
         Double d_year = Double.parseDouble(year);
         return Math.round(d_year);
     }
-    
+
     // 获取某个时间是周几
     public static String getDayOfWeek(Date date) {
         if (null == date) {
@@ -57,9 +57,10 @@ public class DateUtil {
         }
         return weekDay_str;
     }
-    
+
     /**
      * 取格式化时间
+     *
      * @param day
      * @return
      */
@@ -67,9 +68,10 @@ public class DateUtil {
         SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy年MM月dd日");
         return myFormatter.format(day);
     }
-    
+
     /**
      * 取当前时间 格式自定义
+     *
      * @param day
      * @param dateFormat
      * @return
@@ -83,16 +85,17 @@ public class DateUtil {
         }
         return "";
     }
-    
+
     /**
      * 取当前时间 格式自定义 yyyy-MM-dd HH:mm:ss
+     *
      * @return
      */
     public static String getCurrentDateStr() {
         Date day = new Date();
         String dateFormat = "yyyy-MM-dd HH:mm:ss";
         try {
-            
+
             SimpleDateFormat myFormatter = new SimpleDateFormat(dateFormat);
             return myFormatter.format(day);
         } catch (Exception e) {
@@ -100,15 +103,16 @@ public class DateUtil {
         }
         return "";
     }
-    
+
     /**
      * 取当前时间 格式自定义 yyyy-MM-dd HH:mm:ss
+     *
      * @return
      */
     public static String getDateFromString(Date day, String dateFormat) {
         // String dateFormat = "yyyy-MM-dd HH:HH:ss";
         try {
-            
+
             SimpleDateFormat myFormatter = new SimpleDateFormat(dateFormat);
             return myFormatter.format(day);
         } catch (Exception e) {
@@ -116,7 +120,7 @@ public class DateUtil {
         }
         return "";
     }
-    
+
     public static Date getDateFromString(String dateValueString, String dataFormatString) {
         Date d = null;
         try {
@@ -127,15 +131,16 @@ public class DateUtil {
         }
         return d;
     }
-    
+
     /**
      * 取当前时间 格式自定义
+     *
      * @return
      */
     public static String getCurrentDateStr(String dateFormat) {
         Date day = new Date();
         try {
-            
+
             SimpleDateFormat myFormatter = new SimpleDateFormat(dateFormat);
             return myFormatter.format(day);
         } catch (Exception e) {
@@ -143,16 +148,17 @@ public class DateUtil {
         }
         return "";
     }
-    
+
     /**
      * 取当前时间 格式自定义 yyyy-MM-dd HH:mm:ss
+     *
      * @return
      */
     public static Date getCurrentDate() {
         Date day = new Date();
         String dateFormat = "yyyy-MM-dd HH:mm:ss";
         try {
-            
+
             SimpleDateFormat myFormatter = new SimpleDateFormat(dateFormat);
             return myFormatter.parse(myFormatter.format(day));
         } catch (Exception e) {
@@ -160,9 +166,10 @@ public class DateUtil {
         }
         return null;
     }
-    
+
     /**
      * 获取日期格式化为yyyy-MM-dd的当前Date值
+     *
      * @return
      * @author wuling
      */
@@ -177,51 +184,54 @@ public class DateUtil {
         }
         return null;
     }
-    
+
     /**
      * 判断时间是否在时间段内
-     * @param date 当前时间 yyyy-MM-dd HH:mm:ss
+     *
+     * @param date         当前时间 yyyy-MM-dd HH:mm:ss
      * @param strDateBegin 开始时间 00:00:00
-     * @param strDateEnd 结束时间 00:05:00
+     * @param strDateEnd   结束时间 00:05:00
      * @return
      */
     public static boolean isInDate(Date date, String strDateBegin, String strDateEnd) {
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = sdf.format(date);
-        
+
         Long strDateLong = Long.parseLong(strDate.replaceAll("-", "").trim());
         Long strDateBeginLong = Long.parseLong(strDateBegin.replaceAll("-", "").trim());
         Long strDateEndLong = Long.parseLong(strDateEnd.replaceAll("-", "").trim());
-        
+
         if (strDateLong >= strDateBeginLong && strDateLong <= strDateEndLong)
             return true;
         else
             return false;
     }
-    
+
     /**
      * date <= strDateBegin 返回 true else 返回 false
+     *
      * @param date
      * @param strDateBegin
      * @return
      */
     public static boolean compareDate(Date date, String strDateBegin) {
-        
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = sdf.format(date);
-        
+
         Long strDateLong = Long.parseLong(strDate.replaceAll("-", "").trim());
         Long strDateBeginLong = Long.parseLong(strDateBegin.replaceAll("-", "").trim());
-        
+
         if (strDateLong <= strDateBeginLong)
             return true;
         else
             return false;
     }
-    
+
     /**
      * 只需要比日期
+     *
      * @param date
      * @param strDateBegin
      * @param strDateEnd
@@ -236,7 +246,7 @@ public class DateUtil {
         else
             return false;
     }
-    
+
     /**
      * @param date
      * @param type 为‘y’|‘M’|‘d’|‘H’|‘m’|‘s’等
@@ -262,7 +272,7 @@ public class DateUtil {
         }
         return resultStr;
     }
-    
+
     /**
      * @return
      * @author wuling
@@ -271,9 +281,10 @@ public class DateUtil {
         long intervalLong = beginDate.getTime() - targetDate.getTime();
         return (int) (intervalLong / 1000);
     }
-    
+
     /**
      * 指定时间(Date)，减少指定的几天的时间
+     *
      * @param crtDate
      * @param i
      * @return

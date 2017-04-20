@@ -30,28 +30,29 @@ import com.waemy.web.vo.weixin.WeiXinJsApiParamsVO;
  * @date 2016年12月2日
  */
 public class WaemyWxInterfaceUtil {
-    
+
     private static Logger logger = LoggerFactory.getLogger(WaemyWxInterfaceUtil.class);
-    
-    public final static String CURRENT_DOMAIN = "http://laihejifen.zhenjiatong.com";
-    
+
+    //    public final static String CURRENT_DOMAIN = "http://laihejifen.zhenjiatong.com";
+    public final static String CURRENT_DOMAIN = "http://h5.waemy.com";
+
     public static String APP_ID = "wx1f8a269600c90461"; //
-    
+
     public static String SECRET = "a03e0fadb3337ed59fbd8cecf1d7b904";
-    
+
     public static String SCOPE = "snsapi_base";// snsapi_userinfo和snsapi_base
-    
+
     // 获取access_token的接口地址（GET） 限200（次/天）
     private final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-    
+
     private final static String js_ticket_url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
-    
+
     // 提前1800秒获取新access_token
     private final static int beforeExpiresIn = 1800;
-    
+
     // 每次获取accessToken的时间
     private static Map<String, DateByWxAccessTokenAndJsApiTicketVO> wxTokenGetPerDates = new HashMap<>();
-    
+
     public static WeiXinJsApiParamsVO getWXJSInterfaceParamVO(String pageRelateUrl) {
         String pageUrl = CURRENT_DOMAIN + pageRelateUrl;
         logger.info("当前请求的PageUrl=" + pageUrl);
@@ -63,11 +64,11 @@ public class WaemyWxInterfaceUtil {
         setAttrValuesToWeiXinJsApiParamsVO(jsApiParamsVO, pageUrl);
         return jsApiParamsVO;
     }
-    
+
     private static String create_timestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
     }
-    
+
     private static String byteToHex(final byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash) {
@@ -77,7 +78,7 @@ public class WaemyWxInterfaceUtil {
         formatter.close();
         return result;
     }
-    
+
     private static void setAttrValuesToWeiXinJsApiParamsVO(WeiXinJsApiParamsVO jsApiParamsVO, String pageUrl) {
         // 1. 获取随机字符串
         String nonce_str = RandomStringUtil.getRandomString(16);
@@ -102,11 +103,11 @@ public class WaemyWxInterfaceUtil {
             e.printStackTrace();
         }
     }
-    
+
     public static synchronized DateByWxAccessTokenAndJsApiTicketVO getWxAccessTokenAndJsApiTicketVO(String appid, String appsecret) {
         DateByWxAccessTokenAndJsApiTicketVO accessTokenAndJsApiTicketVO = wxTokenGetPerDates.get(appid);
         if (accessTokenAndJsApiTicketVO != null
-            && DateUtil.getDateIntervalForSecond(new Date(), accessTokenAndJsApiTicketVO.getGetDate()) < accessTokenAndJsApiTicketVO.getAccessToken().getExpiresIn() - beforeExpiresIn) {
+                && DateUtil.getDateIntervalForSecond(new Date(), accessTokenAndJsApiTicketVO.getGetDate()) < accessTokenAndJsApiTicketVO.getAccessToken().getExpiresIn() - beforeExpiresIn) {
             return accessTokenAndJsApiTicketVO;
         } else {
             AccessToken accessToken = null;
@@ -142,7 +143,7 @@ public class WaemyWxInterfaceUtil {
         wxTokenGetPerDates.put(appid, accessTokenAndJsApiTicketVO);
         return accessTokenAndJsApiTicketVO;
     }
-    
+
     // 一次重新请求，获取基础access_token
     public static AccessToken tmpGetWeixinAccessTokenByAppIdAndSecret(String appId, String secret) {
         logger.info("获取指定AppId=" + appId + "的accessToken");
@@ -155,7 +156,7 @@ public class WaemyWxInterfaceUtil {
         AccessToken accessToken = (AccessToken) NetUtil.get(requestVo);
         return accessToken;
     }
-    
+
     // 临时请求获取jsTicket； 每次都重新获取， 不做缓存
     public static WeiXinJsApiParamsVO tmpGetJsApiTicket(String pageUrl) {
         WeiXinJsApiParamsVO jsApiParamsVO = new WeiXinJsApiParamsVO();
@@ -182,9 +183,9 @@ public class WaemyWxInterfaceUtil {
         }
         setAttrValuesToWeiXinJsApiParamsVO(jsApiParamsVO, pageUrl);
         return jsApiParamsVO;
-        
+
     }
-    
+
     public static String urlEnodeUTF8(String str) {
         String result = str.trim();
         try {
@@ -194,7 +195,7 @@ public class WaemyWxInterfaceUtil {
         }
         return result;
     }
-    
+
     public static String getWaemyAccessToken() {
         return getWxAccessTokenAndJsApiTicketVO(APP_ID, SECRET).getAccessToken().getToken();
     }

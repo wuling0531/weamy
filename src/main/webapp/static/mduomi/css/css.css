@@ -84,7 +84,7 @@ h1 .btn-slide-right {
     position: relative;
     margin: 30px auto 0 auto;
     background: url(../img/maiya_img_01.jpg);
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 

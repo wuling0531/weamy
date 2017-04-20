@@ -30,7 +30,7 @@
             </div>
             <ul>
                 <li class="yebor">
-                    <div class="po">
+                    <div class="po" onclick="javascript:location.href='/wx/m/square';">
                         <img src="/static/mduomi/img/square-h.png">
                     </div>
                     麦哆咪广场
@@ -43,7 +43,7 @@
                 </li>
                 <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';">
                     <div class="po">
-                        <img src="/static/mduomi/img/album-h.png">
+                        <img src="/static/mduomi/img/acct.png">
                     </div>
                     我的账户
                 </li>
@@ -71,13 +71,13 @@
             </div>
             <img src="${songDetailWithPraiseVO.songDetailVO.coverUrl }" width="100%">
             <div class="player">
-                <audio src="/static/mduomi/audio/seeyouagain.mp3" preload="auto" controls></audio>
-                <%-- 					<audio src="${songDetailWithPraiseVO.songDetailVO.playUrl }" preload="auto" controls></audio> --%>
+                <%--<audio src="/static/mduomi/audio/seeyouagain.mp3" preload="auto" controls></audio>--%>
+                <audio src="${songDetailWithPraiseVO.songDetailVO.playUrl }" preload="auto" controls></audio>
             </div>
         </div>
     </header>
 
-    <main><input type="hidden" id="baseMusicId" value="${songDetailWithPraiseVO.songDetailVO.baseMusicId }"/>
+    <main><input type="hidden" id="baseMusicId" value="${songDetailWithPraiseVO.songDetailVO.id }"/>
         <!-- 		<div class="details"> -->
         <%-- 			<h1>${songDetailWithPraiseVO.songDetailVO.musicName }</h1> --%> <!-- 			<h2> -->
         <!-- 				<div class="round-images"> -->
@@ -90,7 +90,7 @@
             <h1>${songDetailWithPraiseVO.songDetailVO.board }</h1>
             <h2>
                 <div class="round-images">
-                    <img src="/static/mduomi/img/maiya_img_05.jpg" width="100%">
+                    <img src="${songDetailWithPraiseVO.songDetailVO.portraitUrl}" width="100%">
                 </div>
                 <p>
                     <font>${songDetailWithPraiseVO.songDetailVO.userName }</font>
@@ -118,13 +118,13 @@
         <%-- 			<input type="hidden" id="playNum" value="${songDetailWithPraiseVO.songDetailVO.playTimes }" /> --%> <%-- 			<div id="playTimesDiv" class="tisong-up">${songDetailWithPraiseVO.songDetailVO.playTimes }次</div> --%>
         <!-- 		</div> --> <font> </font></main>
     <%--<font style="display: none;>--%>
-        <%--<div id="menu" style="display: none;">--%>
-            <%--<ul>--%>
-                <%--<li class="line"><img src="/static/mduomi/img/love-02.png"></li>--%>
-                <%--<li class="line"><img src="/static/mduomi/img/message-02.png"></li>--%>
-                <%--<li><img src="/static/mduomi/img/move-02.png"></li>--%>
-            <%--</ul>--%>
-        <%--</div>--%>
+    <%--<div id="menu" style="display: none;">--%>
+    <%--<ul>--%>
+    <%--<li class="line"><img src="/static/mduomi/img/love-02.png"></li>--%>
+    <%--<li class="line"><img src="/static/mduomi/img/message-02.png"></li>--%>
+    <%--<li><img src="/static/mduomi/img/move-02.png"></li>--%>
+    <%--</ul>--%>
+    <%--</div>--%>
     <%--</font>--%>
 </div>
 <script src="/static/mduomi/js/audioplayer.js"></script>

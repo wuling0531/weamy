@@ -42,7 +42,7 @@
                 </li>
                 <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';">
                     <div class="po">
-                        <img src="/static/mduomi/img/album-h.png">
+                        <img src="/static/mduomi/img/acct.png">
                     </div>
                     我的账户
                 </li>
@@ -152,6 +152,7 @@
                         targetHtml += '</font><br/>';
                         targetHtml += '<span>'+arrObj[i].dateStr+'</span>';
                         targetHtml += '<div class="mount">￥';
+                        console.log(arrObj[i].money);
                         targetHtml += arrObj[i].money;
                         targetHtml += '</div></div>';
                     }

@@ -32,7 +32,7 @@
 							<img src="/static/mduomi/img/album-h.png">
 						</div>我的专辑</li>
 					<li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';"><div class="po">
-							<img src="/static/mduomi/img/album-h.png">
+							<img src="/static/mduomi/img/acct.png">
 						</div>我的账户</li>
 					<li onclick="javascript:callWxScan();" style="cursor: pointer;"><div class="po">
 							<img src="/static/mduomi/img/scanning-h.png">

@@ -28,8 +28,8 @@
                 <p>${wxUserInfo.nickname }</p>
             </div>
             <ul>
-                <li class="yebor">
-                    <div class="po" onclick="javascript:location.href='/wx/m/square';">
+                <li class="yebor" onclick="javascript:location.href='/wx/m/square';">
+                    <div class="po">
                         <img src="/static/mduomi/img/square-h.png">
                     </div>
                     麦哆咪广场
@@ -42,7 +42,7 @@
                 </li>
                 <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';">
                     <div class="po">
-                        <img src="/static/mduomi/img/album-h.png">
+                        <img src="/static/mduomi/img/acct.png">
                     </div>
                     我的账户
                 </li>
@@ -106,9 +106,36 @@
     <input type="hidden" id="curPageNoFlag" value="${pageVO.pageNo}"/>
     <input type="hidden" id="crtTotalCount" value="${fn:length(rechargeDetailVOs)}"/>
     <input type="hidden" id="firstNextFlag" value="${pageVO.nextPage}"/>
+    <input type="hidden" id="couponStatus" value="${status}"/>
 </div>
 <script type="text/javascript" src="/static/mduomi/js/jquery-2.1.4.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
 <script type="text/javascript">
+    //调用微信
+    wx.config({
+        debug: false,
+        appId: 'wx1f8a269600c90461',
+        timestamp: Number('${interfaceParamVO.timestamp}'),
+        nonceStr: '${interfaceParamVO.nonceStr}',
+        signature: '${interfaceParamVO.signature}',
+        jsApiList: [
+            'checkJsApi', 'scanQRCode']
+    });
+
+    /**
+     *防串货查询-条用微信‘扫一扫’接口，扫描二维码
+     */
+    function callWxScan() {
+        wx.scanQRCode({
+            needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: [
+                "qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            success: function (res) {
+//                var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+//                console.log(result);
+            }
+        });
+    }
     if (!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
         document.getElementById('mainContent').style.width = '320px';
         document.getElementById('mainContent').className = "mainContent diyScroll";
@@ -130,8 +157,10 @@
     function moreData() {
         var nextPageNo = parseInt($('#curPageNoFlag').val()) + 1;
         var crtTotalCount = parseInt($('#crtTotalCount').val());
-        $.getJSON('/wx/m/moreChargeRecord', {
-            pageNo: nextPageNo
+        var statusVal = $('#couponStatus').val();
+        $.getJSON('/wx/m/moreCouponData', {
+            pageNo: nextPageNo,
+            status: statusVal
         }, function (data, state) {
             if (state == 'success') {
                 //为了看到加载中效果故加上定时器
@@ -139,7 +168,7 @@
                     targetHtml = '';
                     var arrObj = data.couponDetailVOs;
                     for (i = 0; i < arrObj.length; i++) {
-                        targetHtml += '<div class="volume-bo">';
+                        targetHtml += '<div class="volume-used">';
                         <%--targetHtml += '<div class="bolbo" onclick="activateCoupon(${couponVO.no },${couponVO.house_id });">';--%>
                         targetHtml += '<div class="bolbo" onclick="activateCoupon(' + arrObj[i].no + ',' + arrObj[i].house_id + ');">';
                         targetHtml += '<div class="b-title">';

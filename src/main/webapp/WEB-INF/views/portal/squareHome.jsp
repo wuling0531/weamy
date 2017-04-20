@@ -43,7 +43,7 @@
                 </li>
                 <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';">
                     <div class="po">
-                        <img src="/static/mduomi/img/album-h.png">
+                        <img src="/static/mduomi/img/acct.png">
                     </div>
                     我的账户
                 </li>
@@ -77,7 +77,7 @@
                 <div class="homeDI">${detailWithPaiseVO.songDetailVO.relative }</div>
             </h1>
             <div class="song-box"
-                 onclick="javascript:location.href='/wx/m/mydetail?squareMusicId=${detailWithPaiseVO.songDetailVO.music_id}';">
+                 onclick="javascript:dispatherDetailPage(${detailWithPaiseVO.songDetailVO.music_id});">
                 <div class="Cover">
                     <img src="${detailWithPaiseVO.songDetailVO.cover_url }" width="100%" height="100%">
                 </div>
@@ -103,7 +103,7 @@
     </main>
     <c:if test="${pageVO.nextPage}">
         <div id="moreDiv" onclick="moreData();"
-             style="width:100%;line-height: 26px;text-align: center;font-size: 80%;color: #666;">点击加载更多...
+             style="width:100%;line-height: 32px;text-align: center;font-size: 80%;color: #666;">点击加载更多...
         </div>
     </c:if>
     <input type="hidden" id="curPageNoFlag" value="${pageVO.pageNo}"/>
@@ -117,7 +117,7 @@
 <!-- weixin接口js -->
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
 <script type="text/javascript">
-    //调用微信js地址位置接口-
+    //调用微信
     wx.config({
         debug: false,
         appId: 'wx1f8a269600c90461',
@@ -195,8 +195,8 @@
                         targetHtml += '<h1><div class="round-image"><img src="' + arrObj[i].songDetailVO.portrait_url + '" width="100%"></div>';
                         targetHtml += '<p>' + arrObj[i].songDetailVO.user_name + '</p>';
                         targetHtml += '<div class="homeDI">' + arrObj[i].songDetailVO.relative + '</div></h1>';
-                        targetHtml += '<div class="song-box" onclick="javascript:location.href=\'/wx/m/mydetail?squareMusicId=' + arrObj[i].songDetailVO.music_id + '\';">';
-                        targetHtml += '<div class="Cover"><img src="' + arrObj[i].songDetailVO.cover_url + '" width="100%" /></div>';
+                        targetHtml += '<div class="song-box" onclick="javascript:dispatherDetailPage(' + arrObj[i].songDetailVO.music_id + ');">';
+                        targetHtml += '<div class="Cover"><img src="' + arrObj[i].songDetailVO.cover_url + '" width="100%" height="100%"/></div>';
                         targetHtml += '<div class="songmi"><p>' + arrObj[i].songDetailVO.music_name + '</p><div class="tisong">' + arrObj[i].songDetailVO.play_times + '次</div></div>';
                         targetHtml += '</div>';
                         targetHtml += '<ul id="praiseDis_' + (crtTotalCount) + '">';
@@ -204,8 +204,10 @@
                         targetHtml += '<input type="hidden" id="praise_operate_' + crtTotalCount + '" value="1" />';
                         targetHtml += '<li><img onclick="addPraiseTimes(' + arrObj[i].songDetailVO.music_id + ',' + crtTotalCount + ');" src="/static/mduomi/img/love.png"></li>';
                         targetHtml += '<li class="font-t" id="praiseTimes_' + crtTotalCount + '">' + arrObj[i].praiseNum + '次</li>';
-                        for (j = 0; j < arrObj[i].praiseDetailVOs.length; j++) {
-                            targetHtml += '<li class="po-image"><img src="' + arrObj[i].praiseDetailVOs[j].portrait_url + '" width="100%"></li>';
+                        if (arrObj[i].praiseDetailVOs != null && arrObj[i].praiseDetailVOs.length > 0) {
+                            for (j = 0; j < arrObj[i].praiseDetailVOs.length; j++) {
+                                targetHtml += '<li class="po-image"><img src="' + arrObj[i].praiseDetailVOs[j].portrait_url + '" width="100%"></li>';
+                            }
                         }
                         targetHtml += '</ul>';
                         targetHtml += '<span>' + arrObj[i].songDetailVO.board + '</span>';
@@ -305,6 +307,11 @@
                 }
             }
         });
+    }
+
+    function dispatherDetailPage(musicId) {
+        $('#curPageNoFlag').val(1);
+        location.href = '/wx/m/mydetail?squareMusicId=' + musicId;
     }
 </script>
 </body>

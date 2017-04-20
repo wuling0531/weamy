@@ -44,7 +44,7 @@ public interface IAPICallService {
 
     List<RechargeDetailVO> getMyAccountDetailList(String openId, PageVO pageVO);
 
-    List<CouponDetailVO> getMyCouponDetailList(String openId, int status);
+    List<CouponDetailVO> getMyCouponDetailList(String openId, int status, PageVO pageVO);
 
     List<RechargeCommodityVO> getRechargeCommodityList();
 
@@ -52,6 +52,6 @@ public interface IAPICallService {
 
     String createPayWxQrcodeImg(String realPath, String openId, String productId, String paytype);
 
-    CommonRespNotDataVO activiteCoupon(String couponNo, String openId, String houseId);
+    CommonRespNotDataVO activiteCoupon(String couponNo, String openId, String houseId, String deviceId);
 
 }

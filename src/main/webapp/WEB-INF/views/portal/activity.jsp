@@ -49,20 +49,20 @@
 		</header>
 		<main>
 		<div class="activityMAIN">
-			<ul>
-				<c:forEach items="${activityListDataVO.baseMusicInfoMap }" var="baseMusicVO">
-					<li><div class="img">
-							<img src="${baseMusicVO.singer_cover }" width="100%">
-						</div>
-						<div class="font">${baseMusicVO.music_name }</div>
-						<div class="Gname">${baseMusicVO.singer }</div></li>
-				</c:forEach>
-				<!-- 				<li><div class="img"> -->
-				<!-- 						<img src="/static/mduomi/img/Avatar.jpg" width="100%"> -->
-				<!-- 					</div> -->
-				<!-- 					<div class="font">2infinity And Beyond</div> -->
-				<!-- 					<div class="Gname">林俊杰</div></li> -->
-			</ul>
+			<%--<ul>--%>
+				<%--<c:forEach items="${activityListDataVO.baseMusicInfoMap }" var="baseMusicVO">--%>
+					<%--<li><div class="img">--%>
+							<%--<img src="${baseMusicVO.singer_cover }" width="100%">--%>
+						<%--</div>--%>
+						<%--<div class="font">${baseMusicVO.music_name }</div>--%>
+						<%--<div class="Gname">${baseMusicVO.singer }</div></li>--%>
+				<%--</c:forEach>--%>
+				<%--<!-- 				<li><div class="img"> -->--%>
+				<%--<!-- 						<img src="/static/mduomi/img/Avatar.jpg" width="100%"> -->--%>
+				<%--<!-- 					</div> -->--%>
+				<%--<!-- 					<div class="font">2infinity And Beyond</div> -->--%>
+				<%--<!-- 					<div class="Gname">林俊杰</div></li> -->--%>
+			<%--</ul>--%>
 		</div>
 		</main>
 

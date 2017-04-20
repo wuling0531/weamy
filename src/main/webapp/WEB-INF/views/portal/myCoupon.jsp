@@ -28,8 +28,8 @@
                 <p>${wxUserInfo.nickname }</p>
             </div>
             <ul>
-                <li class="yebor">
-                    <div class="po" onclick="javascript:location.href='/wx/m/square';">
+                <li class="yebor" onclick="javascript:location.href='/wx/m/square';">
+                    <div class="po">
                         <img src="/static/mduomi/img/square-h.png">
                     </div>
                     麦哆咪广场
@@ -42,7 +42,7 @@
                 </li>
                 <li class="yebor" onclick="javascript:location.href='/wx/m/myAccount';">
                     <div class="po">
-                        <img src="/static/mduomi/img/album-h.png">
+                        <img src="/static/mduomi/img/acct.png">
                     </div>
                     我的账户
                 </li>
@@ -115,9 +115,38 @@
     <input type="hidden" id="curPageNoFlag" value="${pageVO.pageNo}"/>
     <input type="hidden" id="crtTotalCount" value="${fn:length(rechargeDetailVOs)}"/>
     <input type="hidden" id="firstNextFlag" value="${pageVO.nextPage}"/>
+    <input type="hidden" id="deviceId" value="${deviceId}"/>
 </div>
 <script type="text/javascript" src="/static/mduomi/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/static/layer.mobile/layer/layer.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
 <script type="text/javascript">
+    //调用微信
+    wx.config({
+        debug: false,
+        appId: 'wx1f8a269600c90461',
+        timestamp: Number('${interfaceParamVO.timestamp}'),
+        nonceStr: '${interfaceParamVO.nonceStr}',
+        signature: '${interfaceParamVO.signature}',
+        jsApiList: [
+            'checkJsApi', 'scanQRCode']
+    });
+
+    /**
+     *防串货查询-条用微信‘扫一扫’接口，扫描二维码
+     */
+    function callWxScan() {
+        wx.scanQRCode({
+            needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+            scanType: [
+                "qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+            success: function (res) {
+//                var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+//                console.log(result);
+            }
+        });
+    }
+
     if (!navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
         document.getElementById('mainContent').style.width = '320px';
         document.getElementById('mainContent').className = "mainContent diyScroll";
@@ -125,23 +154,60 @@
 
     //激活优惠券
     function activateCoupon(couponNo, houseId) {
-        location.href = '/wx/m/activateCoupon?couponNo=' + couponNo + '&houseId=' + houseId;
+        var deviceId = $('#deviceId').val();
+        if (deviceId != null && deviceId.length > 0 && deviceId != 'null') {
+            layer.open({
+                content: '您确定要激活该优惠券？'
+                , btn: ['确认', '取消']
+                , yes: function (index) {
+                    location.href = '/wx/m/activateCoupon?couponNo=' + couponNo + '&houseId=' + houseId + '&deviceId=' + deviceId;
+                }, function (data, state) {
+                    if (data.code == -1) {
+                        alert('激活失败');
+                    } else {
+                        location.href = '/wx/m/myCoupon?status=2';
+                    }
+                }
+            });
+        } else {
+            layer.open({
+                content: '当前不能激活'
+                , btn: '确定'
+            });
+
+        }
+//        layer.close(index);
     }
     //激活输入优惠券
     function activateCouponByInput() {
         var couponNo = $('#inputCoupon').val();
         var houseId = $('#currentHouseId').val();
-        $.getJSON('/wx/m/activateCouponByAjax', {
-            couponNo: couponNo,
-            houseId: houseId
-        }, function (data, state) {
-            if (data.code == -1) {
-                alert('激活失败');
-            } else {
-                location.href = '/wx/m/myCoupon?status=2';
-            }
-        })
-//			location.href='/wx/m/activateCoupon?couponNo='+couponNo+'&houseId=1';
+        var deviceId = $('#deviceId').val();
+        if (deviceId != null && deviceId.length > 0 && deviceId != 'null') {
+            layer.open({
+                content: '您确定要激活该优惠券？'
+                , btn: ['确认', '取消']
+                , yes: function (index) {
+                    $.getJSON('/wx/m/activateCouponByAjax', {
+                        couponNo: couponNo,
+                        houseId: houseId,
+                        deviceId: deviceId
+                    }, function (data, state) {
+                        if (data.code == -1) {
+                            alert('激活失败');
+                        } else {
+                            location.href = '/wx/m/myCoupon?status=2';
+                        }
+                    })
+                    layer.close(index);
+                }
+            })
+        } else {
+            layer.open({
+                content: '当前不能激活'
+                , btn: '确定'
+            });
+        }
     }
 
     function toggleClassMenu() {
@@ -160,8 +226,9 @@
     function moreData() {
         var nextPageNo = parseInt($('#curPageNoFlag').val()) + 1;
         var crtTotalCount = parseInt($('#crtTotalCount').val());
-        $.getJSON('/wx/m/moreChargeRecord', {
-            pageNo: nextPageNo
+        $.getJSON('/wx/m/moreCouponData', {
+            pageNo: nextPageNo,
+            status: 1
         }, function (data, state) {
             if (state == 'success') {
                 //为了看到加载中效果故加上定时器

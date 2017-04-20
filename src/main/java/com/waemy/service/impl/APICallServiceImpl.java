@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.waemy.web.vo.response.*;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -83,10 +84,16 @@ public class APICallServiceImpl implements IAPICallService {
             } else {
                 pageVO.setNextPage(false);//
             }
-            SquareeSongDetailWithPaiseVO detailWithPaiseVO = null;
+            SquareeSongDetailWithPaiseVO detailWithPaiseVO;
             RequestVo praiseReqVo = new RequestVo();
-            SongPraiseDataVO praiseDataVO = null;
+            SongPraiseDataVO praiseDataVO;
             for (SquareSongDetailVO detailVO : respVO.getData().getList()) {
+                if (detailVO.getPlay_times() == null) {
+                    detailVO.setPlay_times("0");
+                }
+                if (detailVO.getBoard() == null) {
+                    detailVO.setBoard("");
+                }
                 detailWithPaiseVO = new SquareeSongDetailWithPaiseVO();
                 detailWithPaiseVO.setSongDetailVO(detailVO);
 //                String praiseListUrl = "http://101.201.41.109/maemy/api/praise/list/music/" + detailVO.getSquare_id();
@@ -161,7 +168,8 @@ public class APICallServiceImpl implements IAPICallService {
             for (SquareSongDetailVO songDetailVO : respVO.getData().getList()) {
                 detailWithPraiseVO = new SquareSongDetailWithPraiseVO();
                 detailWithPraiseVO.setSongDetailVO(songDetailVO);
-                String praiseListUrl = "http://101.201.41.109/maemy/api/praise/list/music/" + songDetailVO.getSquare_id();
+//                String praiseListUrl = "http://101.201.41.109/maemy/api/praise/list/music/" + songDetailVO.getSquare_id();
+                String praiseListUrl = "http://101.201.41.109/maemy/api/praise/list/music/" + songDetailVO.getMusic_id();
                 praiseReqVo.requestUrl = praiseListUrl;
                 praiseReqVo.jsonParser = new SongPraiseRespParse();
                 logger.info("开始请求：requestUrl_get=" + praiseReqVo.requestUrl);
@@ -326,6 +334,8 @@ public class APICallServiceImpl implements IAPICallService {
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = addFollowstUrl;
+            requestVo.jsonParser = new CommonRespNotDataParse();
+            requestVo.requestDataMap = new HashMap<>();
             logger.info("开始请求：requestUrl_get=" + requestVo.requestUrl);
             NetUtil.get(requestVo);
         } catch (Exception e) {
@@ -395,7 +405,7 @@ public class APICallServiceImpl implements IAPICallService {
     public List<RechargeDetailVO> getMyAccountDetailList(String openId, PageVO pageVO) {
         List<RechargeDetailVO> rechargeDetailVOs = new ArrayList<>();
         RechargeListDataRespVO respVO = null;
-        String accountListUrl = "http://101.201.41.109/maemy/api/account//list/user/" + openId + "?offset=" + pageVO.getPageNo();
+        String accountListUrl = "http://101.201.41.109/maemy/api/account/list/user/" + openId + "?offset=" + pageVO.getPageNo();
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = accountListUrl;
@@ -411,6 +421,15 @@ public class APICallServiceImpl implements IAPICallService {
         // }
         if (respVO.getData() != null && respVO.getData().getList() != null && respVO.getData().getList().size() > 0) {
             rechargeDetailVOs = respVO.getData().getList();
+            //
+            if (rechargeDetailVOs != null && rechargeDetailVOs.size() > 0) {
+                for (RechargeDetailVO rechargeDetailVO :
+                        rechargeDetailVOs) {
+                    if (rechargeDetailVO != null && StringUtils.isBlank(rechargeDetailVO.getMoney())) {
+                        rechargeDetailVO.setMoney("0");
+                    }
+                }
+            }
             if ("0".equals(respVO.getData().getTail())) {// 不是最后一页
                 pageVO.setNextPage(true);//
             }
@@ -419,10 +438,10 @@ public class APICallServiceImpl implements IAPICallService {
     }
 
     @Override
-    public List<CouponDetailVO> getMyCouponDetailList(String openId, int status) {
+    public List<CouponDetailVO> getMyCouponDetailList(String openId, int status, PageVO pageVO) {
         List<CouponDetailVO> couponDetailVOs = new ArrayList<>();
         CouponDetailListDataRespVO respVO = null;
-        String couponListUrl = "http://101.201.41.109/maemy/api/coupon/list/user/" + openId + "/status/" + status;
+        String couponListUrl = "http://101.201.41.109/maemy/api/coupon/list/user/" + openId + "/status/" + status + "?offset=" + pageVO.getPageNo();
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = couponListUrl;
@@ -435,16 +454,13 @@ public class APICallServiceImpl implements IAPICallService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (respVO != null) {
-            couponDetailVOs = respVO.getData();
 
+        if (respVO.getData() != null && respVO.getData().getList() != null && respVO.getData().getList().size() > 0) {
+            couponDetailVOs = respVO.getData().getList();
+            if ("0".equals(respVO.getData().getTail())) {// 不是最后一页
+                pageVO.setNextPage(true);//
+            }
         }
-//        if (respVO.getData() != null && respVO.getData().getList() != null && respVO.getData().getList().size() > 0) {
-//            rechargeDetailVOs = respVO.getData().getList();
-//            if ("0".equals(respVO.getData().getTail())) {// 不是最后一页
-//                pageVO.setNextPage(true);//
-//            }
-//        }
         return couponDetailVOs;
     }
 
@@ -542,9 +558,10 @@ public class APICallServiceImpl implements IAPICallService {
     }
 
     @Override
-    public CommonRespNotDataVO activiteCoupon(String couponNo, String openId, String houseId) {
+    public CommonRespNotDataVO activiteCoupon(String couponNo, String openId, String houseId, String deviceId) {
         CommonRespNotDataVO respNotDataVO = null;
-        String activiteCouponUrl = "http://101.201.41.109/maemy/api/coupon/use/" + couponNo + "/user/" + openId + "/house/" + houseId;
+//        String activiteCouponUrl = "http://101.201.41.109/maemy/api/coupon/use/" + couponNo + "/user/" + openId + "/house/" + houseId;
+        String activiteCouponUrl = "http://101.201.41.109/maemy/api/coupon/use/" + couponNo + "/user/" + openId + "/house/" + deviceId;
         try {
             RequestVo requestVo = new RequestVo();
             requestVo.requestUrl = activiteCouponUrl;
